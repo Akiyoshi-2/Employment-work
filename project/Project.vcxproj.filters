@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\PlayerManager.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\Player.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Input.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\SceneBase.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\SceneManager.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\Title\TitleScene.cpp">
+      <Filter>Source\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\Play\PlayScene.cpp">
+      <Filter>Source\Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\GameOver\GameOver.cpp">
+      <Filter>Source\Scene\GameOverScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\BulletManager.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\BulletBase.cpp">
+      <Filter>Source\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Bullet\PlayerBullet\PlayerBullet.cpp">
+      <Filter>Source\Bullet\PlayerBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\CameraManager.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\CameraBase.cpp">
+      <Filter>Source\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\Camera.cpp">
+      <Filter>Source\Camera\FixedCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\FollowCamera.cpp">
+      <Filter>Source\Camera\FollowCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FPS\FPS.cpp">
+      <Filter>Source\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animation\Animation.cpp">
+      <Filter>Source\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Floor\Floor.cpp">
+      <Filter>Source\Floor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision\CollisionManager.cpp">
+      <Filter>Source\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision\CollisionAABB.cpp">
+      <Filter>Source\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MyMath\MyMath.cpp">
+      <Filter>Source\MyMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision\CollisionSphere.cpp">
+      <Filter>Source\Collision</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0091f8be-2502-44e5-bc1b-6b603200f5a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Player">
+      <UniqueIdentifier>{5b084b64-3021-4590-846d-b25e67a255c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{5cba0b07-bf09-4495-b0d4-b074cc369243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{f9639e86-d622-4d45-b56d-2db198ecfdb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\TitleScene">
+      <UniqueIdentifier>{28b756d4-a197-43cc-b9d6-bb1a8299b854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\PlayScene">
+      <UniqueIdentifier>{bf8aff2c-f911-41a9-bde4-5a6a095e8fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\GameOverScene">
+      <UniqueIdentifier>{e1fd4e33-d4b6-4160-8f61-a88f6259b092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bullet">
+      <UniqueIdentifier>{ebb8e690-695a-48b7-a372-c80f847f744b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bullet\PlayerBullet">
+      <UniqueIdentifier>{9b4d06e2-d0ee-4879-afb5-f0c30f47565e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera">
+      <UniqueIdentifier>{d3d65989-a6e6-4807-a4d0-ecef26327dcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera\FollowCamera">
+      <UniqueIdentifier>{670f86c9-5f4b-4b15-9f49-91719c2cc822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Camera\FixedCamera">
+      <UniqueIdentifier>{6418654e-902f-4de4-9906-f63cb3d5841f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FPS">
+      <UniqueIdentifier>{66279920-9f19-4015-99e5-31b640318007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Animation">
+      <UniqueIdentifier>{74253846-738e-4240-8ce1-12ae9b2af8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Floor">
+      <UniqueIdentifier>{e81ac7a8-7aa0-4f76-9f39-5d1c907b399c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Collision">
+      <UniqueIdentifier>{46e023eb-0ca9-43bb-b428-033a179203b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MyMath">
+      <UniqueIdentifier>{4f1beae7-b566-48ab-89c7-5f3630732e76}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Player\PlayerManager.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\Player.h">
+      <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Input.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneBase.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneManager.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\SceneParameter.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\Title\TitleScene.h">
+      <Filter>Source\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\Play\PlayScene.h">
+      <Filter>Source\Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\GameOver\GameOver.h">
+      <Filter>Source\Scene\GameOverScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletManager.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\BulletBase.h">
+      <Filter>Source\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\PlayerBullet\PlayerBullet.h">
+      <Filter>Source\Bullet\PlayerBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\CameraManager.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\CameraBase.h">
+      <Filter>Source\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\Camera.h">
+      <Filter>Source\Camera\FixedCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\FollowCamera.h">
+      <Filter>Source\Camera\FollowCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FPS\FPS.h">
+      <Filter>Source\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animation\Animation.h">
+      <Filter>Source\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Floor\Floor.h">
+      <Filter>Source\Floor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\CollisionManager.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\CollisionAABB.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MyMath\MyMath.h">
+      <Filter>Source\MyMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\CollisionSphere.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
