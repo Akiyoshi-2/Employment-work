@@ -48,20 +48,20 @@ bool CollisionAABB::CheckAABB(CollisionAABB* other)
 	VECTOR otherSize = other->GetSize();
 
 	// 自身のボックス各面の値
-	float left		= centerPos.x - m_Size.x * 0.5;
-	float right		= centerPos.x + m_Size.x * 0.5;
-	float top		= centerPos.y - m_Size.y * 0.5;
-	float bottom	= centerPos.y + m_Size.y * 0.5;
-	float front		= centerPos.z - m_Size.z * 0.5;
-	float back		= centerPos.z + m_Size.z * 0.5;
+	float left		= (float)centerPos.x - m_Size.x * 0.5;
+	float right		= (float)centerPos.x + m_Size.x * 0.5;
+	float top		= (float)centerPos.y - m_Size.y * 0.5;
+	float bottom	= (float)centerPos.y + m_Size.y * 0.5;
+	float front		= (float)centerPos.z - m_Size.z * 0.5;
+	float back		= (float)centerPos.z + m_Size.z * 0.5;
 
 	// 対象のボックス各面の値
-	float otherLeft		= otherCenterPos.x - otherSize.x * 0.5;
-	float otherRight	= otherCenterPos.x + otherSize.x * 0.5;
-	float otherTop		= otherCenterPos.y - otherSize.y * 0.5;
-	float otherBottom	= otherCenterPos.y + otherSize.y * 0.5;
-	float otherFront	= otherCenterPos.z - otherSize.z * 0.5;
-	float otherBack		= otherCenterPos.z + otherSize.z * 0.5;
+	float otherLeft		= (float)otherCenterPos.x - otherSize.x * 0.5;
+	float otherRight	= (float)otherCenterPos.x + otherSize.x * 0.5;
+	float otherTop		= (float)otherCenterPos.y - otherSize.y * 0.5;
+	float otherBottom	= (float)otherCenterPos.y + otherSize.y * 0.5;
+	float otherFront	= (float)otherCenterPos.z - otherSize.z * 0.5;
+	float otherBack		= (float)otherCenterPos.z + otherSize.z * 0.5;
 
 	//当たり判定
 	if (left <= otherRight && right >= otherLeft &&
