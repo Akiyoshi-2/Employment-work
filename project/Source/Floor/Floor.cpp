@@ -26,7 +26,7 @@ void Floor::Init()
 {
 	m_Collision.SetTargetPos(&m_Pos);
 	m_Collision.SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-	m_Collision.SetSize(VGet(40.0f, 2.0f, 40.0f));
+	m_Collision.SetSize(VGet(40.0f, 10.0f, 40.0f));
 }
 
 void Floor::Load()

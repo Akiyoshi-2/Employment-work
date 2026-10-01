@@ -29,3 +29,4 @@ private:
 
     std::list<BulletBase*> m_BulletList;
 };
+

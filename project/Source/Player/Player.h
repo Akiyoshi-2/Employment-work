@@ -3,8 +3,10 @@
 #include "../Bullet/BulletManager.h"
 #include "../Animation/Animation.h"
 #include "../Collision/CollisionAABB.h"
+#include <vector>
 
-class Floor;
+class CollisionSphere;
+class StageObject;
 
 class Player
 {
@@ -43,19 +45,21 @@ public:
 	void SetBulletManager(BulletManager* manager);
 
 	VECTOR GetPos() const { return m_Pos; }
+	CollisionAABB* GetCollisionAABB() { return m_AABB; }
+	// CollisionSphere* GetCollisionSphere() { return &m_Sphere; }
 
-	void SetFloor(Floor* floor);
+	// void SetTransform(VECTOR pos, VECTOR move, float size, bool isTurn, bool isGround, PlayerGravityDir gravityDir);
+
+	void CheckHitStageObjects(const std::vector<StageObject*>& stageObjects);
 
 public:
-	CollisionAABB* GetCollision()
-	{
-		return &m_Collision;
-	}
+	CollisionAABB* GetCollision() { return m_AABB; }
 
 private:
 	int m_HP;
 	VECTOR m_Pos;
 	VECTOR m_Move;
+	VECTOR m_PrevPos;
 	float m_Size;
 	bool m_isTurn;
 	bool m_IsGround;
@@ -70,8 +74,7 @@ private:
 
 	BulletManager* m_BulletManager;
 
-	Floor* m_Floor;
-
-	CollisionAABB m_Collision;
+	CollisionAABB* m_AABB;
+	//CollisionSphere m_Sphere;
 };
 

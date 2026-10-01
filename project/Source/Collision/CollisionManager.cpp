@@ -3,6 +3,8 @@
 #include "CollisionSphere.h"
 #include "../Player/PlayerManager.h"
 #include "../Player/Player.h"
+#include "../StageObject/Block/Block.h"
+#include "../StageObject/StageObjectManager.h"
 
 CollisionManager* CollisionManager::m_Instance = nullptr;
 
@@ -65,10 +67,38 @@ CollisionAABB* CollisionManager::CreateAABB()
 	return aabb;
 }
 
+void CollisionManager::DeleteAABB(CollisionAABB* aabb)
+{
+	auto it = std::find(m_AABB.begin(), m_AABB.end(), aabb);
+	if (it != m_AABB.end())
+	{
+		delete *it;
+		m_AABB.erase(it);
+	}
+}
+
 CollisionSphere* CollisionManager::CreateSphere()
 {
 	CollisionSphere* sphere = new CollisionSphere;
 	m_Sphere.push_back(sphere);
 
 	return sphere;
+}
+
+void CollisionManager::DeleteSphere(CollisionSphere* sphere)
+{
+	auto it = std::find(m_Sphere.begin(), m_Sphere.end(), sphere);
+	if (it != m_Sphere.end())
+	{
+		delete *it;
+		m_Sphere.erase(it);
+	}
+}
+
+void CollisionManager::CheckCollision()
+{
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
+	auto stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
+
+	player->CheckHitStageObjects(stageObjects);
 }

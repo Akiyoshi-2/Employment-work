@@ -14,14 +14,14 @@ public:
 	void SetLocalPos(VECTOR localPos) { m_LocalPos = localPos; }
 	void SetSize(VECTOR size) { m_Size = size; }
 
-	VECTOR GetTargetPos() { return *m_TargetPos; }
-	VECTOR GetLocalPos() { return m_LocalPos; }
-	VECTOR GetSize() { return m_Size; }
+	VECTOR GetTargetPos() const { return *m_TargetPos; }
+	VECTOR GetLocalPos() const { return m_LocalPos; }
+	VECTOR GetSize() const { return m_Size; }
 
 	VECTOR GetMin() const;
 	VECTOR GetMax() const;
 
-	bool CheckAABB(CollisionAABB* other);
+	bool CheckAABB(const CollisionAABB* other) const;
 	
 private:
 	VECTOR* m_TargetPos;

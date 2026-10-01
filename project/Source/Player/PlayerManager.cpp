@@ -1,5 +1,6 @@
 #include "PlayerManager.h"
 #include "Player.h"
+#include "../StageObject/StageObjectManager.h"
 
 PlayerManager* PlayerManager::m_Instance = nullptr;
 

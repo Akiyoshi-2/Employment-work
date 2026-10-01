@@ -2,6 +2,10 @@
 #include "../Source/Input/Input.h"
 #include "../Source/Scene/SceneManager.h"
 #include "../Source/FPS/FPS.h"
+#include "../Source/Library/json/json.hpp"
+
+
+using json = nlohmann::json;
 
 #define SCREEN_WIDTH 1600
 #define SCREEN_HEIGHT 900

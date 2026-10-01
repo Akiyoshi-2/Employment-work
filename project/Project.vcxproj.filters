@@ -70,6 +70,27 @@
     <ClCompile Include="Source\Collision\CollisionSphere.cpp">
       <Filter>Source\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Stage\StageManager.cpp">
+      <Filter>Source\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StageObject\StageObjectManager.cpp">
+      <Filter>Source\StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StageObject\StageObject.cpp">
+      <Filter>Source\StageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StageObject\Trap\Trap.cpp">
+      <Filter>Source\StageObject\Trap</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StageObject\Block\Block.cpp">
+      <Filter>Source\StageObject\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\EnemyManager.cpp">
+      <Filter>Source\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\EnemyBase.cpp">
+      <Filter>Source\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -122,6 +143,36 @@
     </Filter>
     <Filter Include="Source\MyMath">
       <UniqueIdentifier>{4f1beae7-b566-48ab-89c7-5f3630732e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Stage">
+      <UniqueIdentifier>{af83b871-a961-4078-b95d-c6c92de62cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\StageObject">
+      <UniqueIdentifier>{5d04001f-4d9f-43de-8544-f3bc9c4e8401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\StageObject\Block">
+      <UniqueIdentifier>{f418f003-37e4-4bf7-b891-701417933fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\StageObject\Trap">
+      <UniqueIdentifier>{3471bc2c-c805-43c8-9856-dd894e8e0804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Library">
+      <UniqueIdentifier>{2c1b8d1e-be4f-47cf-8a5f-7de98bc3045c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy">
+      <UniqueIdentifier>{384a0839-62b1-450a-a8d2-a602b05dc290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\機械">
+      <UniqueIdentifier>{20f92ec9-cf56-4514-99eb-5f27b80affd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\ジャングル">
+      <UniqueIdentifier>{4f173b53-f1b3-4cdb-bbb1-89086df33609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\火山">
+      <UniqueIdentifier>{302279e2-ab42-4e60-973c-adb33deec935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\汚染">
+      <UniqueIdentifier>{84b527f5-55a7-477b-952e-5965acdc0165}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +244,36 @@
     </ClInclude>
     <ClInclude Include="Source\Collision\CollisionSphere.h">
       <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Stage\StageParameter.h">
+      <Filter>Source\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Stage\StageManager.h">
+      <Filter>Source\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageObject\StageObjectManager.h">
+      <Filter>Source\StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageObject\StageObject.h">
+      <Filter>Source\StageObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageObject\Trap\Trap.h">
+      <Filter>Source\StageObject\Trap</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageObject\Block\Block.h">
+      <Filter>Source\StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StageObject\Block\BlockParameter.h">
+      <Filter>Source\StageObject\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Library\json\json.hpp">
+      <Filter>Source\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyManager.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyBase.h">
+      <Filter>Source\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,11 +7,11 @@
 
 FollowCamera::FollowCamera()
 {
-	m_Pos = VGet(0.0f, 20.0f, -20.0f);
+	m_Pos = VGet(0.0f, 20.0f, -5.0f);
 
 	m_Target = VGet(0.0f, 0.0f, 0.0f);
 
-	m_Offset = VGet(0.0f, 40.0f, -100.0f);
+	m_Offset = VGet(0.0f, 20.0f, -100.0f);
 }
 
 FollowCamera::~FollowCamera()

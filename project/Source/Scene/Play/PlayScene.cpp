@@ -8,7 +8,8 @@
 #include "../../Bullet/BulletManager.h"
 #include "../../Camera/CameraManager.h"
 #include "../../Camera/FollowCamera.h"
-#include "../../Floor/Floor.h"
+#include "../../StageObject/StageObjectManager.h"
+#include "../../Stage/StageManager.h"
 
 
 PlayScene::PlayScene()
@@ -26,11 +27,6 @@ void PlayScene::Init()
 	// コリジョンマネージャー生成
 	CollisionManager::CreateInstance();
 	
-	// 仮床
-	m_Floor = new Floor;
-	m_Floor->Init();
-
-
 	// プレイヤーマネージャー
 	PlayerManager::CreateInstance();
 	PlayerManager* playerManager = PlayerManager::GetInstance();
@@ -42,8 +38,6 @@ void PlayScene::Init()
 	if (player)
 	{
 		player->Init();
-
-		player->SetFloor(m_Floor);
 	}
 
 	playerManager->Init();
@@ -58,6 +52,13 @@ void PlayScene::Init()
 	BulletManager::GetInstance()->Init();
 
 	playerManager->GetPlayer()->SetBulletManager(BulletManager::GetInstance());
+
+	// ステージオブジェクト
+	StageObjectManager::CreateInstance();
+	StageObjectManager::GetInstance()->Init();
+
+	// ステージマネージャー
+	StageManager::CreateInstance();
 }
 
 void PlayScene::Load()
@@ -69,12 +70,20 @@ void PlayScene::Load()
 	// バレットロード
 	BulletManager::GetInstance()->Load();
 
-	// 仮床ロード
-	m_Floor->Load();
+	// ステージオブジェクトロード
+	StageObjectManager::GetInstance()->Load();
+	// ステージロード
+	StageManager::GetInstance()->Load("Data/Stage/機械惑星.json");
 }
 
 void PlayScene::Start()
 {
+	// ステージ開始
+	StageManager::GetInstance()->Start();
+
+	// ステージオブジェクト開始
+	StageObjectManager::GetInstance()->Start();
+
 	// プレイヤー開始
 	PlayerManager::GetInstance()->Start();
 	// カメラ開始
@@ -82,8 +91,6 @@ void PlayScene::Start()
 	// バレット開始
 	BulletManager::GetInstance()->Start();
 
-	// 仮床開始
-	m_Floor->Start();
 }
 
 void PlayScene::Step()
@@ -95,14 +102,19 @@ void PlayScene::Step()
 	// バレットステップ
 	BulletManager::GetInstance()->Step();
 
-	// 仮床ステップ
-	m_Floor->Step();
+	//当たり判定
+	CollisionManager::GetInstance()->CheckCollision();
+
 }
 
 void PlayScene::Update()
 {
+	// ステージオブジェクト更新
+	StageObjectManager::GetInstance()->Update();
+
 	// プレイヤー更新
 	PlayerManager::GetInstance()->Update();
+
 	// カメラ
 	FollowCamera* camera = dynamic_cast<FollowCamera*>(
 		CameraManager::GetInstance()->GetCamera(FOLLOW_CAMERA));
@@ -114,17 +126,14 @@ void PlayScene::Update()
 
 	CameraManager::GetInstance()->Update();
 	
-	// 仮床更新
-	m_Floor->Update();
-
 	// バレット更新
 	BulletManager::GetInstance()->Update();
 }
 
 void PlayScene::Draw()
 {
-	// 仮床描画
-	m_Floor->Draw();
+	// ステージオブジェクト描画
+	StageObjectManager::GetInstance()->Draw();
 
 
 	// プレイヤー描画
@@ -140,6 +149,11 @@ void PlayScene::Draw()
 
 void PlayScene::Fin()
 {
+	// ステージオブジェクト削除
+	StageObjectManager::DeleteInstance();
+	// ステージ削除
+	StageManager::DeleteInstance();
+
 	// プレイヤー終了
 	PlayerManager::DeleteInstace();
 	// カメラ終了

@@ -18,7 +18,11 @@ public:
 	void Fin();
 
 	CollisionAABB* CreateAABB();
+	void DeleteAABB(CollisionAABB* aabb);
 	CollisionSphere* CreateSphere();
+	void DeleteSphere(CollisionSphere* sphere);
+
+	void CheckCollision();
 
 private:
 	static CollisionManager* m_Instance;
