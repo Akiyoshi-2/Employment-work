@@ -1,5 +1,6 @@
-#include "PlayerBullet.h"
 #include "DxLib.h"
+#include "PlayerBullet.h"
+#include "../../StageObject/StageObjectManager.h"
 
 #define BULLET_OUT_X 1600
 #define BULLET_OUT_Y 900
@@ -11,10 +12,17 @@ PlayerBullet::PlayerBullet()
 
 PlayerBullet::~PlayerBullet()
 {
+	
 }
 
 void PlayerBullet::Init()
 {
+	m_AABB = new CollisionAABB();
+
+	m_AABB->SetTargetPos(&m_Pos);
+	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
+
+	m_AABB->SetSize(VGet(0.5f, 0.5f, 0.5f));
 }
 
 void PlayerBullet::Load()
@@ -34,6 +42,26 @@ void PlayerBullet::Update()
 {
     // 基底クラスの移動処理
     BulletBase::Update();
+
+	// ステージとの当たり判定
+    auto stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
+
+    for (auto obj : stageObjects)
+    {
+		if (!obj) continue;
+
+		const CollisionAABB* objAABB = obj->GetAABB();
+
+        if (!objAABB)
+            continue;
+
+        // 弾とステージが当たった
+        if (0)
+        {
+            SetDead();
+            break;
+        }
+    }
 
     // 画面外に出たら削除
    /* if (m_Pos.x < -64 || m_Pos.x > BULLET_OUT_X + 64 ||

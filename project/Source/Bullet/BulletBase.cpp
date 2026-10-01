@@ -8,10 +8,14 @@ BulletBase::BulletBase()
     m_Move = VGet(0.0f, 0.0f, 0.0f);
 
     m_IsDead = false;
+
+	m_AABB = nullptr;
 }
 
 BulletBase::~BulletBase()
 {
+    delete m_AABB;
+    m_AABB = nullptr;
 }
 
 void BulletBase::Init()

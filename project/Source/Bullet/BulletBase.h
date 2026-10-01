@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DxLib.h"
+#include "../Collision/CollisionAABB.h"
 
 class BulletBase
 {
@@ -34,5 +35,8 @@ protected:
     VECTOR m_Move;
 
     bool m_IsDead;
+
+    CollisionAABB* m_AABB;
+
 };
 
