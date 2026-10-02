@@ -33,6 +33,11 @@ void CollisionAABB::Draw()
 
 bool CollisionAABB::CheckAABB(const CollisionAABB* other) const
 {
+	if (m_TargetPos == nullptr || other->m_TargetPos == nullptr)
+	{
+		return false;
+	}
+
 	VECTOR centerPos = MyMath::VecAdd(*m_TargetPos, m_LocalPos);
 	VECTOR otherCenterPos = MyMath::VecAdd(other->GetTargetPos(), other->GetLocalPos());
 	VECTOR otherSize = other->GetSize();

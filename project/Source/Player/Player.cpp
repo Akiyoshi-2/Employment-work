@@ -174,6 +174,7 @@ void Player::Step()
 			{
 				PlayerBullet* bullet = new PlayerBullet();
 
+				bullet->Init();
 				bullet->Load();
 
 				if (m_isTurn)
@@ -244,6 +245,7 @@ void Player::Step()
 			{
 				PlayerBullet* bullet = new PlayerBullet();
 
+				bullet->Init();
 				bullet->Load();
 
 				if (m_isTurn)
@@ -306,28 +308,19 @@ void Player::Step()
 			if (m_BulletCoolTime <= 0.0f)
 			{
 				PlayerBullet* bullet = new PlayerBullet();
+
+				bullet->Init();
 				bullet->Load();
+
 				if (m_isTurn)
 				{
-					bullet->SetPos(
-						m_Pos.x - 1.0f,
-						m_Pos.y,
-						m_Pos.z);
-					bullet->SetMove(
-						-BULLET_SPEED,
-						0.0f,
-						0.0f);
+					bullet->SetPos(m_Pos.x, m_Pos.y, m_Pos.z);
+					bullet->SetMove(0.0f, BULLET_SPEED, 0.0f);
 				}
 				else
 				{
-					bullet->SetPos(
-						m_Pos.x + 1.0f,
-						m_Pos.y,
-						m_Pos.z);
-					bullet->SetMove(
-						BULLET_SPEED,
-						0.0f,
-						0.0f);
+					bullet->SetPos(m_Pos.x, m_Pos.y, m_Pos.z);
+					bullet->SetMove(0.0f, -BULLET_SPEED, 0.0f);
 				}
 				m_BulletManager->AddBullet(bullet);
 				m_BulletCoolTime = m_BulletInterval;
@@ -377,31 +370,18 @@ void Player::Step()
 			{
 				PlayerBullet* bullet = new PlayerBullet();
 
+				bullet->Init();
 				bullet->Load();
 
 				if (m_isTurn)
 				{
-					bullet->SetPos(
-						m_Pos.x - 1.0f,
-						m_Pos.y,
-						m_Pos.z);
-
-					bullet->SetMove(
-						-BULLET_SPEED,
-						0.0f,
-						0.0f);
+					bullet->SetPos(m_Pos.x, m_Pos.y, m_Pos.z);
+					bullet->SetMove(0.0f, -BULLET_SPEED, 0.0f);
 				}
 				else
 				{
-					bullet->SetPos(
-						m_Pos.x + 1.0f,
-						m_Pos.y,
-						m_Pos.z);
-
-					bullet->SetMove(
-						BULLET_SPEED,
-						0.0f,
-						0.0f);
+					bullet->SetPos(m_Pos.x, m_Pos.y, m_Pos.z);
+					bullet->SetMove(0.0f, BULLET_SPEED, 0.0f);
 				}
 
 				m_BulletManager->AddBullet(bullet);
