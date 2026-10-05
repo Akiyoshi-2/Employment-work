@@ -52,6 +52,9 @@ public:
 
 	void CheckHitStageObjects(const std::vector<StageObject*>& stageObjects);
 
+	void SetGravityDir(PlayerGravityDir dir);
+	PlayerGravityDir GetGravityDir() const { return m_GravityDir; }
+
 public:
 	CollisionAABB* GetCollision() { return m_AABB; }
 

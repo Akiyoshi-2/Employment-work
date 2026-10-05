@@ -59,6 +59,10 @@ namespace Input
 		{
 			g_InputState |= KEY_SPACE;
 		}
+		if (CheckHitKey(KEY_INPUT_X))
+		{
+			g_InputState |= KEY_X;
+		}
 	}
 
 	void Draw()

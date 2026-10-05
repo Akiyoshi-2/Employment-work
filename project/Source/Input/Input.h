@@ -14,6 +14,7 @@ namespace Input
 		KEY_S = (1 << 7),
 		KEY_D = (1 << 8),
 		KEY_SPACE = (1 << 9),
+		KEY_X = (1 << 10),
 	};
 
 	void Init();

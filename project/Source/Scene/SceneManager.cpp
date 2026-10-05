@@ -1,6 +1,8 @@
 #include "SceneManager.h"
 #include "Title/TitleScene.h"
 #include "Play/PlayScene.h"
+#include <stdio.h>
+#include <DxLib.h>
 
 SceneManager* SceneManager::m_Instance = nullptr;
 

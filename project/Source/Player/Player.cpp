@@ -439,53 +439,53 @@ void Player::Update()
 {
 	// 重力方向変更
 	// 上方向
-	if (Input::IsTriggerKey(Input::KEY_W))
-	{
-		m_GravityDir = PlayerGravityDir::UP;
+	//if (Input::IsTriggerKey(Input::KEY_W))
+	//{
+	//	m_GravityDir = PlayerGravityDir::UP;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
+	//	// 移動量をリセット
+	//	m_Move.x = 0.0f;
+	//	m_Move.y = 0.0f;
 
-		// 接地状態解除
-		m_IsGround = false;
-	}
-	// 下方向
-	if (Input::IsTriggerKey(Input::KEY_S))
-	{
-		m_GravityDir = PlayerGravityDir::DOWN;
+	//	// 接地状態解除
+	//	m_IsGround = false;
+	//}
+	//// 下方向
+	//if (Input::IsTriggerKey(Input::KEY_S))
+	//{
+	//	m_GravityDir = PlayerGravityDir::DOWN;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
+	//	// 移動量をリセット
+	//	m_Move.x = 0.0f;
+	//	m_Move.y = 0.0f;
 
-		// 接地状態解除
-		m_IsGround = false;
-	}
-	// 左方向
-	if (Input::IsTriggerKey(Input::KEY_A))
-	{
-		m_GravityDir = PlayerGravityDir::LEFT;
+	//	// 接地状態解除
+	//	m_IsGround = false;
+	//}
+	//// 左方向
+	//if (Input::IsTriggerKey(Input::KEY_A))
+	//{
+	//	m_GravityDir = PlayerGravityDir::LEFT;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
+	//	// 移動量をリセット
+	//	m_Move.x = 0.0f;
+	//	m_Move.y = 0.0f;
 
-		// 接地状態解除
-		m_IsGround = false;
-	}
-	// 右方向
-	if (Input::IsTriggerKey(Input::KEY_D))
-	{
-		m_GravityDir = PlayerGravityDir::RIGHT;
+	//	// 接地状態解除
+	//	m_IsGround = false;
+	//}
+	//// 右方向
+	//if (Input::IsTriggerKey(Input::KEY_D))
+	//{
+	//	m_GravityDir = PlayerGravityDir::RIGHT;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
+	//	// 移動量をリセット
+	//	m_Move.x = 0.0f;
+	//	m_Move.y = 0.0f;
 
-		// 接地状態解除
-		m_IsGround = false;
-	}
+	//	// 接地状態解除
+	//	m_IsGround = false;
+	//}
 
 
 	// 重力↓
@@ -532,45 +532,18 @@ void Player::Draw()
 	}
 	else if (m_GravityDir == PlayerGravityDir::UP)
 	{
-		DrawBillboard3D(
-			m_Pos,
-			0.5f,          
-			0.5f,          
-			m_Size,        
-			0.0f,          
-			GetAnimationHandle(anim),
-			TRUE,
-			m_isTurn,      
-			TRUE          
-		);
+		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, 0.0f, 
+			GetAnimationHandle(anim), TRUE, m_isTurn, TRUE);
 	}
 	else if (m_GravityDir == PlayerGravityDir::LEFT)
 	{
-		DrawBillboard3D(
-			m_Pos,
-			0.5f,
-			0.5f,
-			m_Size,
-			-DX_PI_F * 0.5f,
-			GetAnimationHandle(anim),
-			TRUE,
-			m_isTurn,
-			FALSE
-		);
+		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, -DX_PI_F * 0.5f, 
+			GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	else if (m_GravityDir == PlayerGravityDir::RIGHT)
 	{
-		DrawBillboard3D(
-			m_Pos,
-			0.5f,
-			0.5f,
-			m_Size,
-			DX_PI_F * 0.5f,
-			GetAnimationHandle(anim),
-			TRUE,
-			m_isTurn,
-			FALSE
-		);
+		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,
+			GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	
 
@@ -596,6 +569,16 @@ void Player::ChangeAnimation(PlayerAnimationType anim)
 
 	m_Animation[static_cast<int>(anim)].nowFrame = 0;
 	m_Animation[static_cast<int>(anim)].timer = m_Animation[static_cast<int>(anim)].interval;
+}
+
+void Player::SetGravityDir(PlayerGravityDir dir)
+{
+	m_GravityDir = dir;
+
+	// 移動量をリセット
+	m_Move = VGet(0.0f, 0.0f, 0.0f);
+
+	m_IsGround = false;
 }
 
 void Player::CheckHitStageObjects(const std::vector<StageObject*>& stageObjects)
