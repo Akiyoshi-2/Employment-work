@@ -18,13 +18,13 @@ public:
 	void Draw() override;
 	void Fin() override;
 
-	void DrawGravityChange();
+	// void DrawGravityChange();
 
 private:
 	Floor* m_Floor;
 
-	int m_GravityUpHandle;
+	/*int m_GravityUpHandle;
 	int m_GravityDownHandle;
 	int m_GravityLeftHandle;
-	int m_GravityRightHandle;
+	int m_GravityRightHandle;*/
 };

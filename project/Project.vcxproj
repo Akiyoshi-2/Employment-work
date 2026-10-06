@@ -191,6 +191,7 @@
     <ClInclude Include="Source\Collision\CollisionSphere.h" />
     <ClInclude Include="Source\Enemy\EnemyBase.h" />
     <ClInclude Include="Source\Enemy\EnemyManager.h" />
+    <ClInclude Include="Source\Enemy\EnemyParameter.h" />
     <ClInclude Include="Source\Enemy\機械惑星\BigRoomba.h" />
     <ClInclude Include="Source\Enemy\機械惑星\BombEnemy.h" />
     <ClInclude Include="Source\Enemy\機械惑星\ShootingEnemy.h" />

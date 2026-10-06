@@ -16,10 +16,10 @@ PlayScene::PlayScene()
 {
 	m_Floor = nullptr;
 
-	m_GravityUpHandle = -1;
+	/*m_GravityUpHandle = -1;
 	m_GravityDownHandle = -1;
 	m_GravityLeftHandle = -1;
-	m_GravityRightHandle = -1;
+	m_GravityRightHandle = -1;*/
 }
 
 PlayScene::~PlayScene()
@@ -66,10 +66,10 @@ void PlayScene::Init()
 	StageManager::CreateInstance();
 
 	// 重力方向変更画面の画像読み込み
-	m_GravityUpHandle = LoadGraph("Data/UI/Image/GravityDir_UP.png");
+	/*m_GravityUpHandle = LoadGraph("Data/UI/Image/GravityDir_UP.png");
 	m_GravityDownHandle = LoadGraph("Data/UI/Image/GravityDir_DOWN.png");
 	m_GravityLeftHandle = LoadGraph("Data/UI/Image/GravityDir_LEFT.png");
-	m_GravityRightHandle = LoadGraph("Data/UI/Image/GravityDir_RIGHT.png");
+	m_GravityRightHandle = LoadGraph("Data/UI/Image/GravityDir_RIGHT.png");*/
 }
 
 void PlayScene::Load()
@@ -106,49 +106,40 @@ void PlayScene::Start()
 
 void PlayScene::Step()
 {
-	// 重力方向変更画面の処理
-	PlayerManager::GetInstance()->GravityChange();
+	// プレイヤーステップ
+	PlayerManager::GetInstance()->Step();
+	// カメラステップ
+	CameraManager::GetInstance()->Step();
+	// バレットステップ
+	BulletManager::GetInstance()->Step();
 
-	// 重力方向変更中はステップ処理を行わない
-	if (!PlayerManager::GetInstance()->IsGravityChange())
-	{
-		// プレイヤーステップ
-		PlayerManager::GetInstance()->Step();
-		// カメラステップ
-		CameraManager::GetInstance()->Step();
-		// バレットステップ
-		BulletManager::GetInstance()->Step();
-
-		//当たり判定
-		CollisionManager::GetInstance()->CheckCollision();
-	}
+	//当たり判定
+	CollisionManager::GetInstance()->CheckCollision();	
 }
 
 void PlayScene::Update()
 {
-	// 重力方向変更中は更新処理を行わない
-	if (!PlayerManager::GetInstance()->IsGravityChange())
+	
+	// ステージオブジェクト更新
+	StageObjectManager::GetInstance()->Update();
+
+	// プレイヤー更新
+	PlayerManager::GetInstance()->Update();
+
+	// カメラ
+	FollowCamera* camera = dynamic_cast<FollowCamera*>(
+		CameraManager::GetInstance()->GetCamera(FOLLOW_CAMERA));
+
+	if (camera)
 	{
-		// ステージオブジェクト更新
-		StageObjectManager::GetInstance()->Update();
-
-		// プレイヤー更新
-		PlayerManager::GetInstance()->Update();
-
-		// カメラ
-		FollowCamera* camera = dynamic_cast<FollowCamera*>(
-			CameraManager::GetInstance()->GetCamera(FOLLOW_CAMERA));
-
-		if (camera)
-		{
-			camera->SetTargetPos(PlayerManager::GetInstance()->GetPlayer()->GetPos());
-		}
-
-		CameraManager::GetInstance()->Update();
-
-		// バレット更新
-		BulletManager::GetInstance()->Update();
+		camera->SetTargetPos(PlayerManager::GetInstance()->GetPlayer()->GetPos());
 	}
+
+	CameraManager::GetInstance()->Update();
+
+	// バレット更新
+	BulletManager::GetInstance()->Update();
+
 	
 }
 
@@ -167,12 +158,6 @@ void PlayScene::Draw()
 
 	// 当たり判定描画
 	CollisionManager::GetInstance()->Draw();
-
-	// 重力方向変更中の画面描画
-	if (PlayerManager::GetInstance()->IsGravityChange())
-	{
-		DrawGravityChange();
-	}
 }
 
 void PlayScene::Fin()
@@ -193,18 +178,37 @@ void PlayScene::Fin()
 	// バレット終了
 	BulletManager::DeleteInstance();
 
-	// 仮床削除
-	delete m_Floor;
+	// 重力方向変更画面の画像削除
+	/*DeleteGraph(m_GravityUpHandle);
+	DeleteGraph(m_GravityDownHandle);
+	DeleteGraph(m_GravityLeftHandle);
+	DeleteGraph(m_GravityRightHandle);*/
 }
 
 // 重力方向変更中の画面描画
-void PlayScene::DrawGravityChange()
-{
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
-
-	DrawBox(0, 0, 1600, 900, GetColor(0, 0, 0), TRUE);
-
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	DrawString(750, 150, "GRAVITY CHANGE", GetColor(255, 255, 255), 0);
-}
+//void PlayScene::DrawGravityChange()
+//{
+//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 180);
+//
+//	DrawBox(0, 0, 1600, 900, GetColor(0, 0, 0), TRUE);
+//
+//	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+//
+//	DrawString(735, 120, "GRAVITY CHANGE", GetColor(255, 255, 255), 0);
+//
+//	// 重力方向変更の画像描画
+//	// ↑
+//	DrawGraph(672, 160, m_GravityUpHandle, TRUE);
+//
+//	// ←
+//	DrawGraph(500, 320, m_GravityLeftHandle, TRUE);
+//
+//	// →
+//	DrawGraph(846, 320, m_GravityRightHandle, TRUE);
+//
+//	// ↓
+//	DrawGraph(672, 480, m_GravityDownHandle, TRUE);
+//
+//	// X：キャンセル
+//	DrawString(930, 680, "X : CANCEL", GetColor(255, 255, 255), 0);
+//}

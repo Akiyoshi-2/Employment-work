@@ -92,13 +92,13 @@
       <Filter>Source\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Source\Enemy\機械惑星\BigRoomba.cpp">
-      <Filter>Source\Enemy\機械</Filter>
+      <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
     <ClCompile Include="Source\Enemy\機械惑星\ShootingEnemy.cpp">
-      <Filter>Source\Enemy\機械</Filter>
+      <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
     <ClCompile Include="Source\Enemy\機械惑星\BombEnemy.cpp">
-      <Filter>Source\Enemy\機械</Filter>
+      <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,17 +171,17 @@
     <Filter Include="Source\Enemy">
       <UniqueIdentifier>{384a0839-62b1-450a-a8d2-a602b05dc290}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\機械">
+    <Filter Include="Source\Enemy\Machine">
       <UniqueIdentifier>{20f92ec9-cf56-4514-99eb-5f27b80affd0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\ジャングル">
-      <UniqueIdentifier>{4f173b53-f1b3-4cdb-bbb1-89086df33609}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Enemy\火山">
+    <Filter Include="Source\Enemy\Lava">
       <UniqueIdentifier>{302279e2-ab42-4e60-973c-adb33deec935}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Enemy\汚染">
+    <Filter Include="Source\Enemy\Pollution">
       <UniqueIdentifier>{84b527f5-55a7-477b-952e-5965acdc0165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\Jungle">
+      <UniqueIdentifier>{4f173b53-f1b3-4cdb-bbb1-89086df33609}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,13 +285,16 @@
       <Filter>Source\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy\機械惑星\BigRoomba.h">
-      <Filter>Source\Enemy\機械</Filter>
+      <Filter>Source\Enemy\Machine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy\機械惑星\ShootingEnemy.h">
-      <Filter>Source\Enemy\機械</Filter>
+      <Filter>Source\Enemy\Machine</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy\機械惑星\BombEnemy.h">
-      <Filter>Source\Enemy\機械</Filter>
+      <Filter>Source\Enemy\Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyParameter.h">
+      <Filter>Source\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

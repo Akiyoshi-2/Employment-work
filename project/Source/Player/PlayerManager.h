@@ -25,9 +25,9 @@ public:
 
 	Player* GetPlayer() { return m_Player; }
 
-	void GravityChange();
+	//void GravityChange();
 
-	bool IsGravityChange() const { return m_IsGravityChange; }
+	//bool IsGravityChange() const { return m_IsGravityChange; }
 
 private:
 	static PlayerManager* m_Instance;
