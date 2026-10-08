@@ -91,13 +91,13 @@
     <ClCompile Include="Source\Enemy\EnemyBase.cpp">
       <Filter>Source\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy\機械惑星\BigRoomba.cpp">
+    <ClCompile Include="Source\Enemy\Machine\BigRoomba.cpp">
       <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy\機械惑星\ShootingEnemy.cpp">
+    <ClCompile Include="Source\Enemy\Machine\BombEnemy.cpp">
       <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy\機械惑星\BombEnemy.cpp">
+    <ClCompile Include="Source\Enemy\Machine\ShootingEnemy.cpp">
       <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,17 +284,17 @@
     <ClInclude Include="Source\Enemy\EnemyBase.h">
       <Filter>Source\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy\機械惑星\BigRoomba.h">
-      <Filter>Source\Enemy\Machine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\機械惑星\ShootingEnemy.h">
-      <Filter>Source\Enemy\Machine</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Enemy\機械惑星\BombEnemy.h">
-      <Filter>Source\Enemy\Machine</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Enemy\EnemyParameter.h">
       <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\Machine\BigRoomba.h">
+      <Filter>Source\Enemy\Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\Machine\BombEnemy.h">
+      <Filter>Source\Enemy\Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\Machine\ShootingEnemy.h">
+      <Filter>Source\Enemy\Machine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

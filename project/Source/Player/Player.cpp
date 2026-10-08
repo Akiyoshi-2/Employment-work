@@ -441,51 +441,63 @@ void Player::Update()
 	// 上方向
 	if (Input::IsTriggerKey(Input::KEY_W))
 	{
-		m_GravityDir = PlayerGravityDir::UP;
+		if (m_GravityDir != PlayerGravityDir::UP)
+		{
+			m_GravityDir = PlayerGravityDir::UP;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
+			// 移動量をリセット
+			m_Move.x = 0.0f;
+			m_Move.y = 0.0f;
 
-		// 接地状態解除
-		m_IsGround = false;
+			// 接地状態解除
+			m_IsGround = false;
+		}	
 	}
 	// 下方向
 	if (Input::IsTriggerKey(Input::KEY_S))
 	{
-		m_GravityDir = PlayerGravityDir::DOWN;
+		if (m_GravityDir != PlayerGravityDir::DOWN)
+		{
+			m_GravityDir = PlayerGravityDir::DOWN;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
+			// 移動量をリセット
+			m_Move.x = 0.0f;
+			m_Move.y = 0.0f;
 
-		// 接地状態解除
-		m_IsGround = false;
+			// 接地状態解除
+			m_IsGround = false;
+		}
 	}
 	//// 左方向
 	if (Input::IsTriggerKey(Input::KEY_A))
 	{
-		m_GravityDir = PlayerGravityDir::LEFT;
+		if (m_GravityDir != PlayerGravityDir::LEFT)
+		{
+			m_GravityDir = PlayerGravityDir::LEFT;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
-	//	// 接地状態解除
-		// 接地状態解除
-		m_IsGround = false;
+			// 移動量をリセット
+			m_Move.x = 0.0f;
+			m_Move.y = 0.0f;
+			// 接地状態解除
+			m_IsGround = false;
+		}
+		
 	}
 	// 右方向
 	if (Input::IsTriggerKey(Input::KEY_D))
 	{
-		m_GravityDir = PlayerGravityDir::RIGHT;
+		if (m_GravityDir != PlayerGravityDir::RIGHT)
+		{
+			m_GravityDir = PlayerGravityDir::RIGHT;
 
-		// 移動量をリセット
-		m_Move.x = 0.0f;
-		m_Move.y = 0.0f;
-	//	// 接地状態解除
-		m_IsGround = false;
+			// 移動量をリセット
+			m_Move.x = 0.0f;
+			m_Move.y = 0.0f;
+			// 接地状態解除
+			m_IsGround = false;
+		}
+		
 	}
-
 
 	// 重力↓
 	if (m_GravityDir == PlayerGravityDir::DOWN)
@@ -497,10 +509,12 @@ void Player::Update()
 	{
 		
 	}
+	// 重力←
 	else if (m_GravityDir == PlayerGravityDir::LEFT)
 	{
 
 	}
+	// 重力→
 	else if (m_GravityDir == PlayerGravityDir::RIGHT)
 	{
 
@@ -529,16 +543,19 @@ void Player::Draw()
 			FALSE          // 上下反転
 		);
 	}
+	// 重力方向↑
 	else if (m_GravityDir == PlayerGravityDir::UP)
 	{
 		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, 0.0f, 
 			GetAnimationHandle(anim), TRUE, m_isTurn, TRUE);
 	}
+	// 重力方向←
 	else if (m_GravityDir == PlayerGravityDir::LEFT)
 	{
 		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, -DX_PI_F * 0.5f, 
 			GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
+	// 重力方向→
 	else if (m_GravityDir == PlayerGravityDir::RIGHT)
 	{
 		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,

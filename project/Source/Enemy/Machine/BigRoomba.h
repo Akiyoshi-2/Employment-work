@@ -16,7 +16,4 @@ public:
 
 private:
 	int m_HP;
-	bool m_IsGround;
-	bool m_IsWall;
-	bool m_IsTurn;
 };

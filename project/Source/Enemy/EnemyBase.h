@@ -1,6 +1,25 @@
 #pragma once
 #include "DxLib.h"
 
+class CollisionAABB;
+
+// ìGÇÃê⁄ínñ 
+enum EnemySurface
+{
+	ENEMY_SURFACE_FLOOR,
+	ENEMY_SURFACE_WALL,
+	ENEMY_SURFACE_CEILING,
+};
+
+// ìGÇÃà⁄ìÆï˚å¸
+enum EnemyDir
+{
+	ENEMY_DIR_LEFT,
+	ENEMY_DIR_RIGHT,
+	ENEMY_DIR_UP,
+	ENEMY_DIR_DOWN,
+};
+
 class EnemyBase
 {
 public:
@@ -30,5 +49,10 @@ protected:
 	VECTOR m_Rot;
 	VECTOR m_Scale;
 	VECTOR m_Move;
+
+	CollisionAABB* m_AABB;
+
+	EnemySurface m_Surface;
+	EnemyDir m_Dir;
 };
 
