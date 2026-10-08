@@ -55,9 +55,6 @@
     <ClCompile Include="Source\Animation\Animation.cpp">
       <Filter>Source\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Floor\Floor.cpp">
-      <Filter>Source\Floor</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Collision\CollisionManager.cpp">
       <Filter>Source\Collision</Filter>
     </ClCompile>
@@ -143,9 +140,6 @@
     </Filter>
     <Filter Include="Source\Animation">
       <UniqueIdentifier>{74253846-738e-4240-8ce1-12ae9b2af8d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Floor">
-      <UniqueIdentifier>{e81ac7a8-7aa0-4f76-9f39-5d1c907b399c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Collision">
       <UniqueIdentifier>{46e023eb-0ca9-43bb-b428-033a179203b5}</UniqueIdentifier>
@@ -238,9 +232,6 @@
     </ClInclude>
     <ClInclude Include="Source\Animation\Animation.h">
       <Filter>Source\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Floor\Floor.h">
-      <Filter>Source\Floor</Filter>
     </ClInclude>
     <ClInclude Include="Source\Collision\CollisionManager.h">
       <Filter>Source\Collision</Filter>

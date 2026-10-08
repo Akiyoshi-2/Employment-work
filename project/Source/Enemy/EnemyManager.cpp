@@ -113,12 +113,12 @@ EnemyBase* EnemyManager::CreateEnemy(int id)
 		enemy = m_OriginalMachineEnemy[MACHINE_ENEMY_00]->Clone();
 		break;
 
-	case MACHINE_ENEMY_01:
+	/*case MACHINE_ENEMY_01:
 		enemy = m_OriginalMachineEnemy[MACHINE_ENEMY_01]->Clone();
 		break;
 	case MACHINE_ENEMY_02:
 		enemy = m_OriginalMachineEnemy[MACHINE_ENEMY_02]->Clone();
-		break;
+		break;*/
 	}
 
 	if (enemy)

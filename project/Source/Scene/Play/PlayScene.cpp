@@ -10,12 +10,11 @@
 #include "../../Camera/FollowCamera.h"
 #include "../../StageObject/StageObjectManager.h"
 #include "../../Stage/StageManager.h"
+#include "../../Enemy/EnemyManager.h"
 
 
 PlayScene::PlayScene()
 {
-	m_Floor = nullptr;
-
 	/*m_GravityUpHandle = -1;
 	m_GravityDownHandle = -1;
 	m_GravityLeftHandle = -1;
@@ -52,6 +51,11 @@ void PlayScene::Init()
 	CameraManager::GetInstance()->CreateCamera(FOLLOW_CAMERA);
 	CameraManager::GetInstance()->Init();
 
+	// エネミーマネージャー
+	EnemyManager::CreateInstance();
+	EnemyManager* enemyManager = EnemyManager::GetInstance();
+	enemyManager->Init();
+
 	// バレットマネージャー
 	BulletManager::CreateInstance();
 	BulletManager::GetInstance()->Init();
@@ -80,7 +84,8 @@ void PlayScene::Load()
 	CameraManager::GetInstance()->Load();
 	// バレットロード
 	BulletManager::GetInstance()->Load();
-
+	// エネミーロード
+	EnemyManager::GetInstance()->Load();
 	// ステージオブジェクトロード
 	StageObjectManager::GetInstance()->Load();
 	// ステージロード
@@ -101,7 +106,8 @@ void PlayScene::Start()
 	CameraManager::GetInstance()->Start();
 	// バレット開始
 	BulletManager::GetInstance()->Start();
-
+	// エネミー開始
+	EnemyManager::GetInstance()->Start();
 }
 
 void PlayScene::Step()
@@ -112,6 +118,8 @@ void PlayScene::Step()
 	CameraManager::GetInstance()->Step();
 	// バレットステップ
 	BulletManager::GetInstance()->Step();
+	// エネミーステップ
+	EnemyManager::GetInstance()->Step();
 
 	//当たり判定
 	CollisionManager::GetInstance()->CheckCollision();	
@@ -135,12 +143,14 @@ void PlayScene::Update()
 		camera->SetTargetPos(PlayerManager::GetInstance()->GetPlayer()->GetPos());
 	}
 
+	// カメラ更新
 	CameraManager::GetInstance()->Update();
 
 	// バレット更新
 	BulletManager::GetInstance()->Update();
 
-	
+	// エネミー更新
+	EnemyManager::GetInstance()->Update();
 }
 
 void PlayScene::Draw()
@@ -155,6 +165,9 @@ void PlayScene::Draw()
 	CameraManager::GetInstance()->Draw();
 	// バレット描画
 	BulletManager::GetInstance()->Draw();
+
+	// エネミー描画
+	EnemyManager::GetInstance()->Draw();
 
 	// 当たり判定描画
 	CollisionManager::GetInstance()->Draw();
@@ -177,6 +190,9 @@ void PlayScene::Fin()
 
 	// バレット終了
 	BulletManager::DeleteInstance();
+
+	// エネミー終了
+	EnemyManager::DeleteInstance();
 
 	// 重力方向変更画面の画像削除
 	/*DeleteGraph(m_GravityUpHandle);

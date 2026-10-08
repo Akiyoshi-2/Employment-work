@@ -1,8 +1,6 @@
 #pragma once
 #include "../SceneBase.h"
 
-class Floor;
-
 class PlayScene : public SceneBase
 {
 public:
@@ -21,8 +19,7 @@ public:
 	// void DrawGravityChange();
 
 private:
-	Floor* m_Floor;
-
+	
 	/*int m_GravityUpHandle;
 	int m_GravityDownHandle;
 	int m_GravityLeftHandle;
