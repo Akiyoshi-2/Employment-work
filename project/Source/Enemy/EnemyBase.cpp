@@ -31,6 +31,7 @@ void EnemyBase::Update()
 	MV1SetPosition(m_Handle, m_Pos);
 	MV1SetRotationXYZ(m_Handle, m_Rot);
 	MV1SetScale(m_Handle, m_Scale);
+	
 }
 
 void EnemyBase::Draw()

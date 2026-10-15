@@ -123,6 +123,7 @@ EnemyBase* EnemyManager::CreateEnemy(int id)
 
 	if (enemy)
 	{
+		enemy->Init();
 		m_EnemyList.push_back(enemy);
 	}
 

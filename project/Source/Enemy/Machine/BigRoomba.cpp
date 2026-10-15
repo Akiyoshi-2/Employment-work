@@ -3,8 +3,9 @@
 #include "../../StageObject/StageObjectManager.h"
 #include "../../StageObject/StageObject.h"
 #include "../../MyMath/MyMath.h"
+#include <vector>
 
-#define MOVE_SPEED 0.5f
+#define MOVE_SPEED 0.1f
 
 BigRoomba::BigRoomba()
 {
@@ -55,22 +56,28 @@ void BigRoomba::Start()
 		m_Dir = ENEMY_DIR_LEFT;
 		m_Move = VGet(-MOVE_SPEED, 0.0f, 0.0f);
 		break;
+
+	default:
+		m_Dir = ENEMY_DIR_NONE;
+		m_Move = VGet(0.0f, 0.0f, 0.0f);
+		break;
 	}
+
+	UpdateRot();
 }
+
+
 
 void BigRoomba::Step()
 {
-	if (m_AABB == nullptr)
-	{
-		return;
-	}
-
+	if (m_AABB == nullptr) return;
+	
 	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
 
 	// ˆÚ“®‘O‚ÌÀ•W‚ð•Û‘¶
 	VECTOR prevPos = m_Pos;
 
-	m_Move = MyMath::VecAdd(m_Pos, m_Move);
+	m_Pos = MyMath::VecAdd(m_Pos, m_Move);
 
 	bool isHit = false;
 
@@ -89,8 +96,62 @@ void BigRoomba::Step()
 			break;
 		}
 
-	
 	}
+
+	m_Pos = prevPos;
+
+	if (!isHit)
+	{
+		return;
+	}
+
+	// ˆÚ“®•ûŒü”½“]
+	switch (m_Surface)
+	{
+	case ENEMY_SURFACE_FLOOR:
+		m_Move.x *= -1.0f;
+
+		if (m_Dir == ENEMY_DIR_RIGHT)
+		{
+			m_Dir = ENEMY_DIR_LEFT;
+		}
+		else
+		{
+			m_Dir = ENEMY_DIR_RIGHT;
+		}
+		break;
+
+	case ENEMY_SURFACE_WALL:
+		m_Move.y *= 1.0f;
+
+		if (m_Dir == ENEMY_DIR_UP)
+		{
+			m_Dir = ENEMY_DIR_DOWN;
+		}
+		else
+		{
+			m_Dir = ENEMY_DIR_UP;
+		}
+		break;
+
+	case ENEMY_SURFACE_CEILING:
+		m_Move.x *= 1.0f;
+
+		if (m_Dir == ENEMY_DIR_LEFT)
+		{
+			m_Dir = ENEMY_DIR_RIGHT;
+		}
+		else
+		{
+			m_Dir = ENEMY_DIR_LEFT;
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	UpdateRot();
 }
 
 EnemyBase* BigRoomba::Clone()
@@ -112,3 +173,49 @@ EnemyBase* BigRoomba::Clone()
 	clone->m_AABB = nullptr;
 	return clone;
 }
+
+void BigRoomba::UpdateRot()
+{
+	const float HALF_PI = DX_PI_F * 0.5f;
+	const float PI = DX_PI_F;
+
+	switch (m_Surface)
+	{
+	case ENEMY_SURFACE_FLOOR:
+		if (m_Dir == ENEMY_DIR_LEFT)
+		{
+			m_Rot.y = 0.0f;
+		}
+		else if (m_Dir == ENEMY_DIR_RIGHT)
+		{
+			m_Rot.y = PI;
+		}
+		break;
+
+	case ENEMY_SURFACE_WALL:
+		if (m_Dir == ENEMY_DIR_UP)
+		{
+			m_Rot.z = HALF_PI;
+		}
+		else if (m_Dir == ENEMY_DIR_DOWN)
+		{
+			m_Rot.z = -HALF_PI;
+		}
+		break;
+
+	case ENEMY_SURFACE_CEILING:
+		if (m_Dir == ENEMY_DIR_LEFT)
+		{
+			m_Rot.z = PI;
+		}
+		else if (m_Dir == ENEMY_DIR_RIGHT)
+		{
+			m_Rot.z = 0.0f;
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+

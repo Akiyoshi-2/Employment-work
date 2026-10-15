@@ -16,4 +16,6 @@ public:
 
 private:
 	int m_HP;
+
+	void UpdateRot();
 };
