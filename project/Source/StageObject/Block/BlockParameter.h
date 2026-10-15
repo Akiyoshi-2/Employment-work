@@ -18,5 +18,6 @@ enum BlockID
 	BLOCK_13,
 	BLOCK_14,
 	BLOCK_15,
+	BLOCK_16,
 	BLOCK_MAX,
 };

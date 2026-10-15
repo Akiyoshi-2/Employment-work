@@ -11,6 +11,7 @@ StageObjectManager::StageObjectManager()
 {
 	m_StageObjects = {};
 	m_OriginalBlock = nullptr;
+	
 }
 
 StageObjectManager::~StageObjectManager()
@@ -45,6 +46,7 @@ void StageObjectManager::Load()
 		m_OriginalBlock[BLOCK_13].Load("Data/Blender/Block_13/test_pillar.x");
 		m_OriginalBlock[BLOCK_14].Load("Data/Blender/Block_14/test_pillar_start.x");
 		m_OriginalBlock[BLOCK_15].Load("Data/Blender/Block_15/test_floor.x");
+		m_OriginalBlock[BLOCK_16].Load("Data/Blender/Block_16/Block_16.x");
 
 	}
 	else if (m_StageType == StageType::JUNGLE_PLANET)

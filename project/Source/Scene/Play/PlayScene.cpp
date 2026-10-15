@@ -107,10 +107,6 @@ void PlayScene::Start()
 	// バレット開始
 	BulletManager::GetInstance()->Start();
 
-	// BigRoomba生成
-	EnemyManager::GetInstance()->CreateEnemy(MACHINE_ENEMY_00,
-		VGet(80.0f, 6.0f, 0.0f), VGet(0.0f, 0.0f, 0.0f), VGet(2.0f, 2.0f, 2.0f));
-
 	// エネミー開始
 	EnemyManager::GetInstance()->Start();
 }

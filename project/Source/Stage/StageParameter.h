@@ -31,8 +31,15 @@ enum LcateObjectID
 	BLOCK_13,
 	BLOCK_14,
 	BLOCK_15,
+	BLOCK_16,
+
 	// Trap
 	TRAP_00,
+
+	// MachineEnemy
+	MACHINE_ENEMY_00,
+	MACHINE_ENEMY_01,
+	MACHINE_ENEMY_02,
 };
 
 inline void jsonConvXYZ(const nlohmann::json& j, VECTOR& v)

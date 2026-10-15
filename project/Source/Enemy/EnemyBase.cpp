@@ -36,11 +36,6 @@ void EnemyBase::Update()
 
 void EnemyBase::Draw()
 {
-	if (m_Handle == 0)
-	{
-		printfDx("Draw ERROR: handle=0\n");
-		return;
-	}
 	MV1DrawModel(m_Handle);
 }
 

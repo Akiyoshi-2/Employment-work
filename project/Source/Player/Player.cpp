@@ -62,52 +62,22 @@ void Player::Load()
 {
 	
 	// IDLE
-	LoadDivGraph(
-		TEXT("Data/Player/Player_Idle.png"),
-		1,
-		1,
-		1,
-		256,
-		256,
-		m_Animation[static_cast<int>(PlayerAnimationType::IDLE)].handle);
+	LoadDivGraph(TEXT("Data/Player/Player_Idle.png"), 1, 1, 1,
+		256, 256, m_Animation[static_cast<int>(PlayerAnimationType::IDLE)].handle);
 
-	StartAnimation(
-		&m_Animation[static_cast<int>(PlayerAnimationType::IDLE)],
-		9999,
-		1,
-		true);
+	StartAnimation(&m_Animation[static_cast<int>(PlayerAnimationType::IDLE)], 9999, 1, true);
 
 	// RUN
-	LoadDivGraph(
-		TEXT("Data/Player/Player_Run2.png"),
-		5,
-		5,
-		1,
-		256,
-		256,
-		m_Animation[static_cast<int>(PlayerAnimationType::RUN)].handle);
+	LoadDivGraph(TEXT("Data/Player/Player_Run2.png"), 5, 5, 1,
+		256, 256, m_Animation[static_cast<int>(PlayerAnimationType::RUN)].handle);
 
-	StartAnimation(
-		&m_Animation[static_cast<int>(PlayerAnimationType::RUN)],
-		7,
-		5,
-		true);
+	StartAnimation(&m_Animation[static_cast<int>(PlayerAnimationType::RUN)], 7, 5, true);
 
 	// JUMP
-	LoadDivGraph(
-		TEXT("Data/Player/Player_Jump.png"),
-		1,
-		1,
-		1,
-		256,
-		256,
-		m_Animation[static_cast<int>(PlayerAnimationType::JUMP)].handle);
+	LoadDivGraph(TEXT("Data/Player/Player_Jump.png"), 1, 1, 1,
+		256, 256, m_Animation[static_cast<int>(PlayerAnimationType::JUMP)].handle);
 
-	StartAnimation(
-		&m_Animation[static_cast<int>(PlayerAnimationType::JUMP)],
-		9999,
-		1,
-		true);
+	StartAnimation( &m_Animation[static_cast<int>(PlayerAnimationType::JUMP)], 9999, 1, true);
 }
 
 void Player::Start()

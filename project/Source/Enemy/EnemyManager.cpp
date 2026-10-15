@@ -12,7 +12,7 @@ EnemyManager::EnemyManager()
 		m_OriginalMachineEnemy[i] = nullptr;
 	}
 	// ƒWƒƒƒ“ƒOƒ‹˜f¯‚Ì“G
-	for (int i = 0; i < JANGLE_ENEMY_MAX; i++)
+	for (int i = 0; i < JUNGLE_ENEMY_MAX; i++)
 	{
 		m_OriginalJungleEnemy[i] = nullptr;
 	}
@@ -36,8 +36,8 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Init()
 {
 	// ‹@ŠB˜f¯‚Ì“G
-	m_OriginalMachineEnemy[MACHINE_ENEMY_00] = new BigRoomba();
-	m_OriginalMachineEnemy[MACHINE_ENEMY_00]->Init();
+	m_OriginalMachineEnemy[M_ENEMY_00] = new BigRoomba();
+	m_OriginalMachineEnemy[M_ENEMY_00]->Init();
 }
 
 void EnemyManager::Load()
@@ -109,15 +109,15 @@ EnemyBase* EnemyManager::CreateEnemy(int id)
 
 	switch (id)
 	{
-	case MACHINE_ENEMY_00:
-		enemy = m_OriginalMachineEnemy[MACHINE_ENEMY_00]->Clone();
+	case M_ENEMY_00:
+		enemy = m_OriginalMachineEnemy[M_ENEMY_00]->Clone();
 		break;
 
-	/*case MACHINE_ENEMY_01:
-		enemy = m_OriginalMachineEnemy[MACHINE_ENEMY_01]->Clone();
+	/*case M_ENEMY_01:
+		enemy = m_OriginalMachineEnemy[M_ENEMY_01]->Clone();
 		break;
-	case MACHINE_ENEMY_02:
-		enemy = m_OriginalMachineEnemy[MACHINE_ENEMY_02]->Clone();
+	case M_ENEMY_02:
+		enemy = m_OriginalMachineEnemy[M_ENEMY_02]->Clone();
 		break;*/
 	}
 

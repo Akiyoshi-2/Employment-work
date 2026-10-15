@@ -17,5 +17,7 @@ public:
 private:
 	int m_HP;
 
+	bool HasSurfaceAhead(VECTOR nextPos);
+
 	void UpdateRot();
 };

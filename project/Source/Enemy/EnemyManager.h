@@ -29,7 +29,7 @@ private:
 	static EnemyManager* m_Instance;
 
 	EnemyBase* m_OriginalMachineEnemy[MACHINE_ENEMY_MAX];
-	EnemyBase* m_OriginalJungleEnemy[JANGLE_ENEMY_MAX];
+	EnemyBase* m_OriginalJungleEnemy[JUNGLE_ENEMY_MAX];
 	EnemyBase* m_OriginalLavaEnemy[LAVA_ENEMY_MAX];
 	EnemyBase* m_OriginalPollutionEnemy[POLLUTION_ENEMY_MAX];
 
