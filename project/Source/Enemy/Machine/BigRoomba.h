@@ -14,6 +14,8 @@ public:
 
 	EnemyBase* Clone() override;
 
+	void OnHitPlayer() override;
+
 private:
 	int m_HP;
 

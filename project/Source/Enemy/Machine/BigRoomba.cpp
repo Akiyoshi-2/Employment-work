@@ -3,6 +3,8 @@
 #include "../../StageObject/StageObjectManager.h"
 #include "../../StageObject/StageObject.h"
 #include "../../MyMath/MyMath.h"
+#include "../../Player/Player.h"
+#include "../../Player/PlayerManager.h"
 #include <vector>
 
 #define MOVE_SPEED 0.1f
@@ -101,7 +103,7 @@ void BigRoomba::Step()
 
 	m_Pos = prevPos;
 
-	if (isHit || hasSurface)
+	if (!isHit && hasSurface)
 	{
 		return;
 	}
@@ -267,4 +269,16 @@ bool BigRoomba::HasSurfaceAhead(VECTOR nextPos)
 	}
 
 	return false;
+}
+
+void BigRoomba::OnHitPlayer()
+{
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
+
+	if (player == nullptr)
+	{
+		return;
+	}
+
+	player->TakeDamage(1);
 }

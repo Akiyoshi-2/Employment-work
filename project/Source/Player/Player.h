@@ -50,13 +50,17 @@ public:
 
 	// void SetTransform(VECTOR pos, VECTOR move, float size, bool isTurn, bool isGround, PlayerGravityDir gravityDir);
 
+	void TakeDamage(int damage);
+	int GetHP() const { return m_HP; }
+
 	void CheckHitStageObjects(const std::vector<StageObject*>& stageObjects);
 
 	void SetGravityDir(PlayerGravityDir dir);
 	PlayerGravityDir GetGravityDir() const { return m_GravityDir; }
 
-public:
 	CollisionAABB* GetCollision() { return m_AABB; }
+
+	
 
 private:
 	int m_HP;

@@ -41,6 +41,8 @@ public:
 
 	virtual EnemyBase* Clone() = 0;
 
+	virtual void OnHitPlayer() {}
+
 	void SetTransform(VECTOR pos, VECTOR rot, VECTOR scale)
 	{
 		m_Pos = pos; m_Rot = rot; m_Scale = scale;
@@ -49,6 +51,8 @@ public:
 		SetSurfaceFromRotation();
 	}
 	void SetPos(VECTOR pos) { m_Pos = pos; }
+
+	CollisionAABB* GetCollisionAABB() const { return m_AABB; }
 
 protected:
 	int m_Handle;

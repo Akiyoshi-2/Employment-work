@@ -5,6 +5,7 @@
 #include "../Player/Player.h"
 #include "../StageObject/Block/Block.h"
 #include "../StageObject/StageObjectManager.h"
+#include "../Enemy/EnemyManager.h"
 
 CollisionManager* CollisionManager::m_Instance = nullptr;
 
@@ -100,5 +101,10 @@ void CollisionManager::CheckCollision()
 	Player* player = PlayerManager::GetInstance()->GetPlayer();
 	auto stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
 
-	player->CheckHitStageObjects(stageObjects);
+	if (player != nullptr)
+	{
+		player->CheckHitStageObjects(stageObjects);
+
+		EnemyManager::GetInstance()->CheckHitPlayer(player->GetCollisionAABB());
+	}
 }

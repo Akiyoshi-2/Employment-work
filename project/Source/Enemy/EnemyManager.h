@@ -4,6 +4,8 @@
 #include "EnemyParameter.h"
 #include <list>
 
+class CollisionAABB;
+
 class EnemyManager
 {
 public:
@@ -24,6 +26,8 @@ public:
 
 	EnemyBase* CreateEnemy(int id);
 	EnemyBase* CreateEnemy(int id, VECTOR pos, VECTOR rot, VECTOR scale);
+
+	bool CheckHitPlayer(const CollisionAABB* playerAABB) const;
 
 private:
 	static EnemyManager* m_Instance;

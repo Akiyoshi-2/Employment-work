@@ -682,3 +682,18 @@ void Player::CheckHitStageObjects(const std::vector<StageObject*>& stageObjects)
 		}
 	}
 }
+
+void Player::TakeDamage(int damage)
+{
+	if (damage <= 0)
+	{
+		return;
+	}
+
+	m_HP -= damage;
+
+	if (m_HP < 0)
+	{
+		m_HP = 0;
+	}
+}

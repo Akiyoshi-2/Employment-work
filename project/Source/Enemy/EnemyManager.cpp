@@ -1,5 +1,6 @@
 #include "EnemyManager.h"
 #include "../Enemy/Machine/BigRoomba.h"
+#include "../Collision/CollisionAABB.h"
 
 
 EnemyManager* EnemyManager::m_Instance = nullptr;
@@ -138,4 +139,32 @@ EnemyBase* EnemyManager::CreateEnemy(int id, VECTOR pos, VECTOR rot, VECTOR scal
 		enemy->SetTransform(pos, rot, scale);
 	}
 	return enemy;
+}
+
+bool EnemyManager::CheckHitPlayer(const CollisionAABB* playerAABB) const
+{
+	if (playerAABB == nullptr)
+	{
+		return false;
+	}
+	
+	bool isHit = false;
+
+	for (auto enemy : m_EnemyList)
+	{
+		if (enemy == nullptr) continue;
+		
+		CollisionAABB* enemyAABB = enemy->GetCollisionAABB();
+
+		if (enemyAABB == nullptr) continue;
+
+		if (playerAABB->CheckAABB(enemyAABB))
+		{
+			enemy->OnHitPlayer();
+			isHit = true;
+		}
+
+	}
+
+	return isHit;
 }
