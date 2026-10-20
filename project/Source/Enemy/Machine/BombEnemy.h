@@ -5,7 +5,7 @@ class BombEnemy : public EnemyBase
 {
 public:
 	BombEnemy();
-	~BombEnemy();
+	~BombEnemy() override;
 
 	void Init() override;
 	void Load() override;
@@ -16,7 +16,21 @@ public:
 		 
 	void OnHitPlayer() override;
 
-private:
-	int m_HP;
+	bool IsFinished() const override { return m_IsExploded; }
 
+private:
+	enum BombState
+	{
+		BOMB_STATE_WAIT,
+		BOMB_STATE_CHASE,
+		BOMB_STATE_EXPLODED
+	};
+
+	int m_HP;
+	BombState m_State;
+	bool m_IsExploded;
+
+	float m_SearchRange;
+
+	void Explode();
 };

@@ -30,7 +30,6 @@ void BigRoomba::Init()
 	m_AABB = new CollisionAABB();
 
 	m_AABB->SetTargetPos(&m_Pos);
-
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 	m_AABB->SetSize(VGet(2.0f, 2.0f, 2.0f));
 }

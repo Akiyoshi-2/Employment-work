@@ -43,6 +43,8 @@ public:
 
 	virtual void OnHitPlayer() {}
 
+	virtual bool IsFinished() const { return false; }
+
 	void SetTransform(VECTOR pos, VECTOR rot, VECTOR scale)
 	{
 		m_Pos = pos; m_Rot = rot; m_Scale = scale;
