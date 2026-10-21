@@ -6,6 +6,7 @@
 
 EnemyBase::EnemyBase()
 {
+	m_HP = 0;
 	m_Handle = 0;
 	m_Pos = VGet(0.0f, 0.0f, 0.0f);
 	m_Rot = VGet(0.0f, 0.0f, 0.0f);
@@ -87,3 +88,4 @@ void EnemyBase::SetSurfaceFromRotation()
 		m_Surface = ENEMY_SURFACE_CEILING;
 	}
 }
+

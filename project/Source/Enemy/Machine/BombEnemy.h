@@ -26,11 +26,12 @@ private:
 		BOMB_STATE_EXPLODED
 	};
 
-	int m_HP;
 	BombState m_State;
 	bool m_IsExploded;
 
 	float m_SearchRange;
+
+	void ChangeModel(const char* modelPath);
 
 	void Explode();
 };

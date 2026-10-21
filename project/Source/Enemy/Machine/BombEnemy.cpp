@@ -7,8 +7,8 @@
 #include "../../MyMath/MyMath.h"
 #include <vector>
 
-#define MOVE_SPEED 0.8f
-#define SEARCH_RANGE 15.0f
+#define MOVE_SPEED 0.1f
+#define SEARCH_RANGE 30.0f
 #define EXPLOSION_RANGE 5.0f
 #define EXPLOSION_DAMAGE 3
 
@@ -41,7 +41,29 @@ void BombEnemy::Init()
 
 void BombEnemy::Load()
 {
+
 	m_Handle = MV1LoadModel("Data/Enemy/Machine/BombEnemy(Stay).x");
+}
+
+void BombEnemy::ChangeModel(const char* modelPath)
+{
+	// 現在のモデルを削除
+	if (m_Handle != 0)
+	{
+		MV1DeleteModel(m_Handle);
+		m_Handle = 0;
+	}
+
+	// 新しいモデルを読み込む
+	m_Handle = MV1LoadModel(modelPath);
+
+	//現在の座標、回転スケールを反映
+	if (m_Handle != -1 && m_Handle != 0)
+	{
+		MV1SetPosition(m_Handle, m_Pos);
+		MV1SetRotationXYZ(m_Handle, m_Rot);
+		MV1SetScale(m_Handle, m_Scale);
+	}
 }
 
 void BombEnemy::Start()
@@ -69,6 +91,8 @@ void BombEnemy::Step()
 		if (VSize(diff) <= m_SearchRange)
 		{
 			m_State = BOMB_STATE_CHASE;
+			// モデル変更
+			ChangeModel("Data/Enemy/Machine/BombEnemy(Hunt).x");
 		}
 		else
 		{
@@ -116,13 +140,13 @@ void BombEnemy::Step()
 				hitStage = true;
 				break;
 			}
-			
-			m_Pos = prevPos;
+		}
 
-			if (hitStage)
-			{
-				Explode();
-			}
+		m_Pos = prevPos;
+
+		if (hitStage)
+		{
+			Explode();
 		}
 	}
 }

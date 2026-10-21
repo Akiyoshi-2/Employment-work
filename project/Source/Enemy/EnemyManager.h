@@ -29,6 +29,8 @@ public:
 
 	bool CheckHitPlayer(const CollisionAABB* playerAABB) const;
 
+	void CheckHitPlayerBullet();
+
 private:
 	static EnemyManager* m_Instance;
 

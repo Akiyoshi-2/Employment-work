@@ -1,5 +1,4 @@
 #pragma once
-
 #include "DxLib.h"
 #include "../Collision/CollisionAABB.h"
 
@@ -27,6 +26,8 @@ public:
     {
         return m_Pos;
     }
+
+    CollisionAABB* GetCollisionAABB() const { return m_AABB; }
 
 protected:
     int m_Handle;

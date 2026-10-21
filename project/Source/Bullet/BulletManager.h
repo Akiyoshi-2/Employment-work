@@ -21,6 +21,8 @@ public:
 
     void AddBullet(BulletBase* bullet);
 
+    const std::list<BulletBase*>& GetBullets() const { return m_BulletList; }
+
 private:
     BulletManager();
     ~BulletManager();

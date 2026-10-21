@@ -17,7 +17,6 @@ public:
 	void OnHitPlayer() override;
 
 private:
-	int m_HP;
 
 	bool HasSurfaceAhead(VECTOR nextPos);
 

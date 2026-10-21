@@ -1,6 +1,9 @@
 #include "EnemyManager.h"
 #include "../Enemy/Machine/BigRoomba.h"
+#include "../Enemy/Machine/BombEnemy.h"
 #include "../Collision/CollisionAABB.h"
+#include "../Bullet/BulletManager.h"
+#include "../Bullet/BulletBase.h"
 
 
 EnemyManager* EnemyManager::m_Instance = nullptr;
@@ -39,6 +42,9 @@ void EnemyManager::Init()
 	// ‹@ŠB˜f¯‚Ì“G
 	m_OriginalMachineEnemy[M_ENEMY_00] = new BigRoomba();
 	m_OriginalMachineEnemy[M_ENEMY_00]->Init();
+
+	m_OriginalMachineEnemy[M_ENEMY_01] = new BombEnemy();
+	m_OriginalMachineEnemy[M_ENEMY_01]->Init();
 }
 
 void EnemyManager::Load()
@@ -62,9 +68,27 @@ void EnemyManager::Start()
 
 void EnemyManager::Step()
 {
-	for (auto& enemy : m_EnemyList)
+	for (auto it = m_EnemyList.begin(); it != m_EnemyList.end();)
 	{
+		EnemyBase* enemy = *it;
+
+		if (enemy == nullptr)
+		{
+			it = m_EnemyList.erase(it);
+			continue;
+		}
+
 		enemy->Step();
+
+		if (enemy->IsFinished())
+		{
+			delete enemy;
+			it = m_EnemyList.erase(it);
+		}
+		else
+		{
+			++it;
+		}
 	}
 }
 
@@ -114,10 +138,10 @@ EnemyBase* EnemyManager::CreateEnemy(int id)
 		enemy = m_OriginalMachineEnemy[M_ENEMY_00]->Clone();
 		break;
 
-	/*case M_ENEMY_01:
+	case M_ENEMY_01:
 		enemy = m_OriginalMachineEnemy[M_ENEMY_01]->Clone();
 		break;
-	case M_ENEMY_02:
+	/*case M_ENEMY_02:
 		enemy = m_OriginalMachineEnemy[M_ENEMY_02]->Clone();
 		break;*/
 	}
@@ -167,4 +191,39 @@ bool EnemyManager::CheckHitPlayer(const CollisionAABB* playerAABB) const
 	}
 
 	return isHit;
+}
+
+void EnemyManager::CheckHitPlayerBullet()
+{
+	const auto& bullets = BulletManager::GetInstance()->GetBullets();
+
+	for (auto bullet : bullets)
+	{
+		if (bullet == nullptr || bullet->IsDead()) continue;
+
+		for (auto enemy : m_EnemyList)
+		{
+			if (enemy == nullptr || enemy->IsDefeated()) continue;
+			
+			CollisionAABB* bulletAABB = enemy->GetCollisionAABB();
+
+			if (bulletAABB == nullptr) continue;
+			
+			for (auto enemy : m_EnemyList)
+			{
+				if (enemy == nullptr || enemy->IsDefeated()) continue;
+
+				CollisionAABB* enemyAABB = enemy->GetCollisionAABB();
+
+				if (enemyAABB == nullptr) continue;
+
+				if (bulletAABB->CheckAABB(enemyAABB))
+				{
+					enemy->TakeDamage(1);
+					bullet->SetDead();
+					break;
+				}
+			}
+		}
+	}
 }

@@ -45,6 +45,21 @@ public:
 
 	virtual bool IsFinished() const { return false; }
 
+	virtual void TakeDamage(int damage)
+	{
+		m_HP -= damage;
+
+		if (m_HP < 0)
+		{
+			m_HP = 0;
+		}
+	}
+
+	virtual bool IsDefeated() const
+	{
+		return m_HP <= 0;
+	}
+
 	void SetTransform(VECTOR pos, VECTOR rot, VECTOR scale)
 	{
 		m_Pos = pos; m_Rot = rot; m_Scale = scale;
@@ -57,6 +72,7 @@ public:
 	CollisionAABB* GetCollisionAABB() const { return m_AABB; }
 
 protected:
+	int m_HP;
 	int m_Handle;
 	VECTOR m_Pos;
 	VECTOR m_Rot;
@@ -70,5 +86,7 @@ protected:
 	EnemyDir m_Dir;
 
 	void SetSurfaceFromRotation();
+
+	
 };
 
