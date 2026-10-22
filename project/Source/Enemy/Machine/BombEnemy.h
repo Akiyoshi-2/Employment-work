@@ -16,7 +16,10 @@ public:
 		 
 	void OnHitPlayer() override;
 
-	bool IsFinished() const override { return m_IsExploded; }
+	bool IsFinished() const override
+	{
+		return m_IsExploded || IsDefeated();
+	}
 
 private:
 	enum BombState
@@ -35,3 +38,4 @@ private:
 
 	void Explode();
 };
+

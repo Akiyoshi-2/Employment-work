@@ -38,6 +38,12 @@ void EnemyBase::Update()
 void EnemyBase::Draw()
 {
 	MV1DrawModel(m_Handle);
+
+	// “–‚½‚è”»’è•`‰æ
+	if (m_AABB != nullptr)
+	{
+		m_AABB->Draw();
+	}
 }
 
 void EnemyBase::Fin()

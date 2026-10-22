@@ -36,7 +36,7 @@ void BombEnemy::Init()
 	m_AABB = new CollisionAABB();
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-	m_AABB->SetSize(VGet(1.0f, 1.0f, 1.0f));
+	m_AABB->SetSize(VGet(4.0f, 4.0f, 4.0f));
 }
 
 void BombEnemy::Load()
@@ -203,3 +203,4 @@ void BombEnemy::Explode()
 
 	// 爆発エフェクトは後から追加する
 }
+

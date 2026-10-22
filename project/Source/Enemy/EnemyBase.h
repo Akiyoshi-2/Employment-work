@@ -43,7 +43,7 @@ public:
 
 	virtual void OnHitPlayer() {}
 
-	virtual bool IsFinished() const { return false; }
+	virtual bool IsFinished() const { return IsDefeated(); }
 
 	virtual void TakeDamage(int damage)
 	{

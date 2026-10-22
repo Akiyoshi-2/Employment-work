@@ -52,6 +52,7 @@ public:
 
 	void TakeDamage(int damage);
 	int GetHP() const { return m_HP; }
+	bool IsDefaeted() const { return m_HP <= 0; }
 
 	void CheckHitStageObjects(const std::vector<StageObject*>& stageObjects);
 

@@ -31,7 +31,7 @@ void BigRoomba::Init()
 
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-	m_AABB->SetSize(VGet(2.0f, 2.0f, 2.0f));
+	m_AABB->SetSize(VGet(5.0f, 2.0f, 4.0f));
 }
 
 void BigRoomba::Load()
@@ -281,3 +281,4 @@ void BigRoomba::OnHitPlayer()
 
 	player->TakeDamage(1);
 }
+

@@ -103,8 +103,11 @@ void CollisionManager::CheckCollision()
 
 	if (player != nullptr)
 	{
+		// Enemy‚ÆPlayer‚Ì“–‚½‚è”»’è
 		player->CheckHitStageObjects(stageObjects);
-
 		EnemyManager::GetInstance()->CheckHitPlayer(player->GetCollisionAABB());
 	}
+
+	// Enemy‚ÆPlayerBullet‚Ì“–‚½‚è”»’è
+	EnemyManager::GetInstance()->CheckHitPlayerBullet();
 }

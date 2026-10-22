@@ -47,6 +47,8 @@ Player::Player()
 	m_GravityDir = PlayerGravityDir::DOWN;
 
 	m_AABB = nullptr;
+
+	
 }
 
 Player::~Player()
@@ -62,22 +64,20 @@ void Player::Load()
 {
 	
 	// IDLE
-	LoadDivGraph(TEXT("Data/Player/Player_Idle.png"), 1, 1, 1,
-		256, 256, m_Animation[static_cast<int>(PlayerAnimationType::IDLE)].handle);
-
+	LoadDivGraph(TEXT("Data/Player/Player_Idle.png"), 1, 1, 1, 256, 256, m_Animation[static_cast<int>(PlayerAnimationType::IDLE)].handle);
 	StartAnimation(&m_Animation[static_cast<int>(PlayerAnimationType::IDLE)], 9999, 1, true);
 
 	// RUN
-	LoadDivGraph(TEXT("Data/Player/Player_Run2.png"), 5, 5, 1,
-		256, 256, m_Animation[static_cast<int>(PlayerAnimationType::RUN)].handle);
-
+	LoadDivGraph(TEXT("Data/Player/Player_Run2.png"), 5, 5, 1, 256, 256, m_Animation[static_cast<int>(PlayerAnimationType::RUN)].handle);
 	StartAnimation(&m_Animation[static_cast<int>(PlayerAnimationType::RUN)], 7, 5, true);
 
 	// JUMP
-	LoadDivGraph(TEXT("Data/Player/Player_Jump.png"), 1, 1, 1,
-		256, 256, m_Animation[static_cast<int>(PlayerAnimationType::JUMP)].handle);
-
+	LoadDivGraph(TEXT("Data/Player/Player_Jump.png"), 1, 1, 1, 256, 256, m_Animation[static_cast<int>(PlayerAnimationType::JUMP)].handle);
 	StartAnimation( &m_Animation[static_cast<int>(PlayerAnimationType::JUMP)], 9999, 1, true);
+
+	// FALL
+	LoadDivGraph(TEXT("Data/Player/Player_Falling.png"), 1, 1, 1, 256, 256, m_Animation[static_cast<int>(PlayerAnimationType::FALL)].handle);
+	StartAnimation(&m_Animation[static_cast<int>(PlayerAnimationType::FALL)], 9999, 1, true);
 }
 
 void Player::Start()
@@ -368,14 +368,24 @@ void Player::Step()
 	m_Pos = MyMath::VecAdd(m_Pos, m_Move);
 
 	// アニメーション切り替え
-	if (m_GravityDir == PlayerGravityDir::UP || 
-		m_GravityDir == PlayerGravityDir::DOWN)
+	if (m_GravityDir == PlayerGravityDir::UP || m_GravityDir == PlayerGravityDir::DOWN)
 	{
-		if (!m_IsGround && m_Move.y != 0.0f)
+		if (!m_IsGround)
 		{
-			ChangeAnimation(PlayerAnimationType::JUMP);
+			if (m_GravityDir == PlayerGravityDir::DOWN && m_Move.y < 0.0f)
+			{
+				ChangeAnimation(PlayerAnimationType::FALL);
+			}
+			else if (m_GravityDir == PlayerGravityDir::UP && m_Move.y > 0.0f)
+			{
+				ChangeAnimation(PlayerAnimationType::FALL);
+			}
+			else
+			{
+				ChangeAnimation(PlayerAnimationType::JUMP);
+			}
 		}
-		else if (m_IsGround && m_Move.x != 0.0f)
+		else if (m_Move.x != 0.0f)
 		{
 			ChangeAnimation(PlayerAnimationType::RUN);
 		}
@@ -384,12 +394,22 @@ void Player::Step()
 			ChangeAnimation(PlayerAnimationType::IDLE);
 		}
 	}
-	else if (m_GravityDir == PlayerGravityDir::LEFT ||
-		m_GravityDir == PlayerGravityDir::RIGHT)
+	else if (m_GravityDir == PlayerGravityDir::LEFT || m_GravityDir == PlayerGravityDir::RIGHT)
 	{
-		if (!m_IsGround && m_Move.x != 0.0f)
+		if (!m_IsGround)
 		{
-			ChangeAnimation(PlayerAnimationType::JUMP);
+			if (m_GravityDir == PlayerGravityDir::LEFT && m_Move.x < 0.0f)
+			{
+				ChangeAnimation(PlayerAnimationType::FALL);
+			}
+			else if (m_GravityDir == PlayerGravityDir::RIGHT && m_Move.x > 0.0f)
+			{
+				ChangeAnimation(PlayerAnimationType::FALL);
+			}
+			else
+			{
+				ChangeAnimation(PlayerAnimationType::JUMP);
+			}
 		}
 		else if (m_IsGround && m_Move.y != 0.0f)
 		{
@@ -516,20 +536,17 @@ void Player::Draw()
 	// 重力方向↑
 	else if (m_GravityDir == PlayerGravityDir::UP)
 	{
-		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, 0.0f, 
-			GetAnimationHandle(anim), TRUE, m_isTurn, TRUE);
+		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, 0.0f, GetAnimationHandle(anim), TRUE, m_isTurn, TRUE);
 	}
 	// 重力方向←
 	else if (m_GravityDir == PlayerGravityDir::LEFT)
 	{
-		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, -DX_PI_F * 0.5f, 
-			GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
+		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, -DX_PI_F * 0.5f, GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	// 重力方向→
 	else if (m_GravityDir == PlayerGravityDir::RIGHT)
 	{
-		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,
-			GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
+		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	
 
@@ -627,8 +644,7 @@ void Player::CheckHitStageObjects(const std::vector<StageObject*>& stageObjects)
 			// 衝突したので移動前のY座標に戻す
 			m_Pos.y = m_PrevPos.y;
 
-			if (m_GravityDir == PlayerGravityDir::DOWN ||
-				m_GravityDir == PlayerGravityDir::UP)
+			if (m_GravityDir == PlayerGravityDir::DOWN || m_GravityDir == PlayerGravityDir::UP)
 			{
 				// 重力↓
 				if (m_GravityDir == PlayerGravityDir::DOWN)
@@ -661,8 +677,7 @@ void Player::CheckHitStageObjects(const std::vector<StageObject*>& stageObjects)
 				}
 			}
 
-			else if (m_GravityDir == PlayerGravityDir::LEFT ||
-				m_GravityDir == PlayerGravityDir::RIGHT)
+			else if (m_GravityDir == PlayerGravityDir::LEFT || m_GravityDir == PlayerGravityDir::RIGHT)
 			{
 				m_Move.y = 0.0f;
 			}

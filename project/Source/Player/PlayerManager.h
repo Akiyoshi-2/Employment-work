@@ -34,5 +34,7 @@ private:
 	Player* m_Player;
 
 	bool m_IsGravityChange;
+
+	void CheckHP();
 };
 

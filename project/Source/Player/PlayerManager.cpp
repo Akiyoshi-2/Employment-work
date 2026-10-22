@@ -50,18 +50,26 @@ void PlayerManager::Start()
 
 void PlayerManager::Step()
 {
+	CheckHP();
+
 	if (m_Player)
 	{
 		m_Player->Step();
 	}
+
+	CheckHP();
 }
 
 void PlayerManager::Update()
 {
+	CheckHP();
+
 	if (m_Player)
 	{
 		m_Player->Update();
 	}
+
+	CheckHP();
 }
 
 void PlayerManager::Draw()
@@ -75,6 +83,17 @@ void PlayerManager::Draw()
 void PlayerManager::Fin()
 {
 	if (m_Player)
+	{
+		delete m_Player;
+		m_Player = nullptr;
+	}
+}
+
+void PlayerManager::CheckHP()
+{
+	if (m_Player == nullptr) return;
+
+	if (m_Player->IsDefaeted())
 	{
 		delete m_Player;
 		m_Player = nullptr;

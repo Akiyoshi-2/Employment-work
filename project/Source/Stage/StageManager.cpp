@@ -57,27 +57,8 @@ void StageManager::Start()
 		{
 			int id = obj.id - MACHINE_ENEMY_00;
 
-			// EnemyManager::GetInstance()->CreateEnemy(id, obj.pos, obj.rot, obj.scale);
+			EnemyManager::GetInstance()->CreateEnemy(id, obj.pos, obj.rot, obj.scale);
 
-			// デバッグ
-			printfDx(
-				"Enemy Create: JSON ID=%d, CreateEnemy ID=%d\n",
-				obj.id, id
-			);
-
-			EnemyBase* enemy =
-				EnemyManager::GetInstance()->CreateEnemy(
-					id, obj.pos, obj.rot, obj.scale
-				);
-
-			if (enemy == nullptr)
-			{
-				printfDx("Enemy Create FAILED!\n");
-			}
-			else
-			{
-				printfDx("Enemy Create SUCCESS!\n");
-			}
 		}
 	}
 }

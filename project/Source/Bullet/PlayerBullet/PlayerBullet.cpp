@@ -23,7 +23,7 @@ void PlayerBullet::Init()
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 
-	m_AABB->SetSize(VGet(0.1f, 0.1f, 0.1f));
+	m_AABB->SetSize(VGet(2.0f, 2.0f, 2.0f));
 }
 
 void PlayerBullet::Load()
@@ -85,6 +85,12 @@ void PlayerBullet::Draw()
         FALSE,      // ¶‰E”½“]
         FALSE       // ã‰º”½“]
     );
+
+    // “–‚½‚è”»’è•`‰æ
+    if (m_AABB != nullptr)
+    {
+        m_AABB->Draw();
+    }
 }
 
 void PlayerBullet::Fin()

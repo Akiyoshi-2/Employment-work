@@ -195,34 +195,35 @@ bool EnemyManager::CheckHitPlayer(const CollisionAABB* playerAABB) const
 
 void EnemyManager::CheckHitPlayerBullet()
 {
-	const auto& bullets = BulletManager::GetInstance()->GetBullets();
+	BulletManager* bulletManager = BulletManager::GetInstance();
+
+	if (bulletManager == nullptr) return;
+
+	const auto& bullets = bulletManager->GetBullets();
 
 	for (auto bullet : bullets)
 	{
 		if (bullet == nullptr || bullet->IsDead()) continue;
 
+		CollisionAABB* bulletAABB = bullet->GetCollisionAABB();
+
+		if (bulletAABB == nullptr) continue;
+
 		for (auto enemy : m_EnemyList)
 		{
 			if (enemy == nullptr || enemy->IsDefeated()) continue;
-			
-			CollisionAABB* bulletAABB = enemy->GetCollisionAABB();
 
-			if (bulletAABB == nullptr) continue;
-			
-			for (auto enemy : m_EnemyList)
+			CollisionAABB* enemyAABB = enemy->GetCollisionAABB();
+
+			if (enemyAABB == nullptr) continue;
+
+			if (bulletAABB->CheckAABB(enemyAABB))
 			{
-				if (enemy == nullptr || enemy->IsDefeated()) continue;
+				bullet->SetDead();
 
-				CollisionAABB* enemyAABB = enemy->GetCollisionAABB();
+				enemy->TakeDamage(1);
 
-				if (enemyAABB == nullptr) continue;
-
-				if (bulletAABB->CheckAABB(enemyAABB))
-				{
-					enemy->TakeDamage(1);
-					bullet->SetDead();
-					break;
-				}
+				break;
 			}
 		}
 	}
