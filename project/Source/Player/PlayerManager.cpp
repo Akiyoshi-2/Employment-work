@@ -50,8 +50,6 @@ void PlayerManager::Start()
 
 void PlayerManager::Step()
 {
-	CheckHP();
-
 	if (m_Player)
 	{
 		m_Player->Step();
@@ -62,8 +60,6 @@ void PlayerManager::Step()
 
 void PlayerManager::Update()
 {
-	CheckHP();
-
 	if (m_Player)
 	{
 		m_Player->Update();

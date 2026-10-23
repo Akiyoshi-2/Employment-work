@@ -39,6 +39,8 @@ Player::Player()
 
 	m_NowAnim = PlayerAnimationType::IDLE;
 
+	
+
 	m_BulletManager = nullptr;
 
 	m_BulletCoolTime = 0.0f;
@@ -48,7 +50,8 @@ Player::Player()
 
 	m_AABB = nullptr;
 
-	
+	m_InvincibleTimer = 0.0f;
+	m_IsVisible = true;
 }
 
 Player::~Player()
@@ -510,11 +513,29 @@ void Player::Update()
 
 	}
 
+	// ダメージを受けた時の無敵時間
+	if (m_InvincibleTimer > 0.0f)
+	{
+		m_InvincibleTimer -= 1.0f / 60.0f;
+
+		// 無敵時間中は点滅
+		m_IsVisible = (static_cast<int>(m_InvincibleTimer * 20.0f) % 2 == 0);
+	}
+	else
+	{
+		m_InvincibleTimer = 0.0f;
+		m_IsVisible = true;
+	}
 	
 }
 
 void Player::Draw()
 {		
+	if (!m_IsVisible)
+	{
+		return;
+	}
+
 	AnimationData* anim = &m_Animation[static_cast<int>(m_NowAnim)];
 
 	// 重力方向↓
@@ -700,6 +721,11 @@ void Player::CheckHitStageObjects(const std::vector<StageObject*>& stageObjects)
 
 void Player::TakeDamage(int damage)
 {
+	if (m_InvincibleTimer > 0.0f)
+	{
+		return;
+	}
+
 	if (damage <= 0)
 	{
 		return;
@@ -711,4 +737,6 @@ void Player::TakeDamage(int damage)
 	{
 		m_HP = 0;
 	}
+
+	m_InvincibleTimer = INVINCIBLE_TIME;
 }

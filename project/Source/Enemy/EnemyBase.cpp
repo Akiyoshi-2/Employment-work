@@ -1,6 +1,8 @@
 #include "EnemyBase.h"
 #include "../MyMath/MyMath.h"
 #include "../Collision/CollisionAABB.h"
+#include "../StageObject/StageObject.h"
+#include "../StageObject/StageObjectManager.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -95,3 +97,38 @@ void EnemyBase::SetSurfaceFromRotation()
 	}
 }
 
+bool EnemyBase::CheckHitStage(VECTOR nextPos)
+{
+	if (m_AABB == nullptr)
+	{
+		return false;
+	}
+
+	VECTOR prevPos = m_Pos;
+
+	m_Pos = nextPos;
+
+	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
+
+	bool isHit = false;
+
+	for (auto obj : stageObjects)
+	{
+		if (obj == nullptr) continue;
+
+		const CollisionAABB* objAABB = obj->GetAABB();
+
+		if (objAABB == nullptr) continue;
+
+		if (m_AABB->CheckAABB(objAABB))
+		{
+			isHit = true;
+			break;
+		}
+	}
+
+	// å≥ÇÃç¿ïWÇ…ñﬂÇ∑
+	m_Pos = prevPos;
+
+	return isHit;
+}

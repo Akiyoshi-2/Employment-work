@@ -69,20 +69,24 @@ private:
 	VECTOR m_Move;
 	VECTOR m_PrevPos;
 	float m_Size;
-	bool m_isTurn;
-	bool m_IsGround;
-
-	PlayerGravityDir m_GravityDir;
-
 	float m_BulletCoolTime;
 	float m_BulletInterval;
+	float m_InvincibleTimer;
+	bool m_isTurn;
+	bool m_IsGround;
+	bool m_IsVisible;
+	static constexpr float INVINCIBLE_TIME = 1.0f;
+
+	PlayerGravityDir m_GravityDir;
+	
+	BulletManager* m_BulletManager;
 
 	AnimationData m_Animation[static_cast<std::size_t>(Player::PlayerAnimationType::MAX)];
 	PlayerAnimationType m_NowAnim;
 
-	BulletManager* m_BulletManager;
-
 	CollisionAABB* m_AABB;
 	//CollisionSphere m_Sphere;
+
+
 };
 

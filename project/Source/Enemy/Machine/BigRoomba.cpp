@@ -11,7 +11,6 @@
 
 BigRoomba::BigRoomba()
 {
-	m_HP = 0;
 }
 
 BigRoomba::~BigRoomba()

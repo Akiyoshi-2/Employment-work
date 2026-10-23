@@ -127,6 +127,7 @@ void BombEnemy::Step()
 
 		bool hitStage = false;
 
+		// ステージとの当たり判定
 		for (auto obj : stageObjects)
 		{
 			if (obj == nullptr) continue;

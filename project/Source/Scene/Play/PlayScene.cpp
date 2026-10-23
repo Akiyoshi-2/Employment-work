@@ -136,12 +136,14 @@ void PlayScene::Update()
 	PlayerManager::GetInstance()->Update();
 
 	// カメラ
-	FollowCamera* camera = dynamic_cast<FollowCamera*>(
-		CameraManager::GetInstance()->GetCamera(FOLLOW_CAMERA));
+	FollowCamera* camera = dynamic_cast<FollowCamera*>(CameraManager::GetInstance()->GetCamera(FOLLOW_CAMERA));
 
-	if (camera)
+	// Playerが存在する時だけ追従位置を設定
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
+
+	if (camera != nullptr && player != nullptr)
 	{
-		camera->SetTargetPos(PlayerManager::GetInstance()->GetPlayer()->GetPos());
+		camera->SetTargetPos(player->GetPos());
 	}
 
 	// カメラ更新

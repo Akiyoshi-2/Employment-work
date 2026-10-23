@@ -87,6 +87,7 @@ protected:
 
 	void SetSurfaceFromRotation();
 
+	bool CheckHitStage(VECTOR nextPos);
 	
 };
 
