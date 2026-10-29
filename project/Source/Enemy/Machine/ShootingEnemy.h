@@ -17,9 +17,22 @@ public:
 	void OnHitPlayer() override;
 
 private:
-	bool HasSurfaceAhead(VECTOR nextPos);
+	enum ShootingState
+	{
+		SHOOTING_NORMAL,
+		SHOOTING_TRACK,
+	};
 
-	void UpdateRot();
+	ShootingState m_State = SHOOTING_NORMAL;
+
+	float m_SearchRange;
+	float m_ShootRange;
+	float m_ShootInterval;
+	float m_ShootTimer;
+
+	float m_TrackDirection = 1.0f;
+	
+	void Shoot(VECTOR playerPos);
 
 };
 

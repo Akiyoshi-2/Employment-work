@@ -132,3 +132,97 @@ bool EnemyBase::CheckHitStage(VECTOR nextPos)
 
 	return isHit;
 }
+
+bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
+{
+	if (m_AABB == nullptr) return false;
+
+	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
+
+	CollisionAABB probe;
+	probe.SetTargetPos(&nextPos);
+	probe.SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
+
+	switch (m_Surface)
+	{
+	case ENEMY_SURFACE_FLOOR:
+		nextPos.y -= 1.1f;
+		nextPos.x += (m_Move.x > 0.0f) ? 0.9f : -0.9;
+		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
+		break;
+
+	case ENEMY_SURFACE_WALL:
+		nextPos.y += (m_Move.y > 0.0f) ? 0.9f : -0.9f;
+		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
+		break;
+
+	case ENEMY_SURFACE_CEILING:
+		nextPos.y += 1.1f;
+		nextPos.x += (m_Move.x > 0.0f) ? 0.9f : -0.9f;
+		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
+		break;
+
+	default:
+		return false;
+	}
+
+	for (auto obj : stageObjects)
+	{
+		if (obj == nullptr) continue;
+
+		const CollisionAABB* objAABB = obj->GetAABB();
+		if (objAABB == nullptr) continue;
+
+		if (probe.CheckAABB(objAABB))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void EnemyBase::UpdateRot()
+{
+	const float HALF_PI = DX_PI_F * 0.5f;
+	const float PI = DX_PI_F;
+
+	switch (m_Surface)
+	{
+	case ENEMY_SURFACE_FLOOR:
+		if (m_Dir == ENEMY_DIR_LEFT)
+		{
+			m_Rot.y = 0.0f;
+		}
+		else if (m_Dir == ENEMY_DIR_RIGHT)
+		{
+			m_Rot.y = PI;
+		}
+		break;
+
+	case ENEMY_SURFACE_WALL:
+		if (m_Dir == ENEMY_DIR_UP)
+		{
+			m_Rot.z = HALF_PI;
+		}
+		else if (m_Dir == ENEMY_DIR_DOWN)
+		{
+			m_Rot.z = -HALF_PI;
+		}
+		break;
+
+	case ENEMY_SURFACE_CEILING:
+		if (m_Dir == ENEMY_DIR_LEFT)
+		{
+			m_Rot.y = PI;
+		}
+		else if (m_Dir == ENEMY_DIR_RIGHT)
+		{
+			m_Rot.y = 0.0f;
+		}
+		break;
+	
+	default:
+		break;
+	}
+}

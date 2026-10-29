@@ -68,45 +68,28 @@ void BigRoomba::Start()
 
 
 
+
 void BigRoomba::Step()
 {
 	if (m_AABB == nullptr) return;
-	
-	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
 
-	// 移動前の座標を保存
-	VECTOR prevPos = m_Pos;
+	// 移動先を計算
 	VECTOR nextPos = MyMath::VecAdd(m_Pos, m_Move);
 
+	// 移動先に床・壁・天井があるか調べる
 	bool hasSurface = HasSurfaceAhead(nextPos);
 
-	bool isHit = false;
+	// EnemyBaseの共通関数でステージとの衝突を判定
+	bool isHit = CheckHitStage(nextPos);
 
-	// ステージとの当たり判定
-	for (auto obj : stageObjects)
-	{
-		if (obj == nullptr) continue;
-			
-		const CollisionAABB* objAABB = obj->GetAABB();
-		
-		if (objAABB == nullptr) continue;
-
-		if (m_AABB->CheckAABB(objAABB))
-		{
-			isHit = true;
-			break;
-		}
-
-	}
-
-	m_Pos = prevPos;
-
+	// ステージに衝突せず、進行方向に表面がある場合は移動
 	if (!isHit && hasSurface)
 	{
+		m_Pos = nextPos;
 		return;
 	}
 
-	// 移動方向反転
+	// 移動方向を反転
 	switch (m_Surface)
 	{
 	case ENEMY_SURFACE_FLOOR:
@@ -152,8 +135,10 @@ void BigRoomba::Step()
 		break;
 	}
 
+	// 向きを更新
 	UpdateRot();
 }
+
 
 EnemyBase* BigRoomba::Clone()
 {
@@ -175,108 +160,11 @@ EnemyBase* BigRoomba::Clone()
 	return clone;
 }
 
-void BigRoomba::UpdateRot()
-{
-	const float HALF_PI = DX_PI_F * 0.5f;
-	const float PI = DX_PI_F;
-
-	switch (m_Surface)
-	{
-	case ENEMY_SURFACE_FLOOR:
-		if (m_Dir == ENEMY_DIR_LEFT)
-		{
-			m_Rot.y = 0.0f;
-		}
-		else if (m_Dir == ENEMY_DIR_RIGHT)
-		{
-			m_Rot.y = PI;
-		}
-		break;
-
-	case ENEMY_SURFACE_WALL:
-		if (m_Dir == ENEMY_DIR_UP)
-		{
-			m_Rot.z = HALF_PI;
-		}
-		else if (m_Dir == ENEMY_DIR_DOWN)
-		{
-			m_Rot.z = -HALF_PI;
-		}
-		break;
-
-	case ENEMY_SURFACE_CEILING:
-		if (m_Dir == ENEMY_DIR_LEFT)
-		{
-			m_Rot.y = PI;
-		}
-		else if (m_Dir == ENEMY_DIR_RIGHT)
-		{
-			m_Rot.y = 0.0f;
-		}
-		break;
-
-	default:
-		break;
-	}
-}
-
-bool BigRoomba::HasSurfaceAhead(VECTOR nextPos)
-{
-	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
-
-	CollisionAABB probe;
-	probe.SetTargetPos(&nextPos);
-	probe.SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-
-	switch (m_Surface)
-	{
-	case ENEMY_SURFACE_FLOOR:
-		nextPos.y -= 1.1f;
-		nextPos.x += (m_Move.x > 0.0f) ? 0.9 : -0.9;
-		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
-		break;
-
-	case ENEMY_SURFACE_WALL:
-		nextPos.y += (m_Move.y > 0.0f) ? 0.9f : -0.9f;
-		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
-		break;
-		break;
-
-	case ENEMY_SURFACE_CEILING:
-		nextPos.y += 1.1f;
-		nextPos.x += (m_Move.x > 0.0f) ? 0.9f : -0.9f;
-		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
-		break;
-
-	default:
-		return false;
-	}
-
-	for (auto obj : stageObjects)
-	{
-		if (obj == nullptr) continue;
-		
-		const CollisionAABB* objAABB = obj->GetAABB();
-		if (objAABB == nullptr) continue;
-
-		if (probe.CheckAABB(objAABB))
-		{
-			return true;
-		}
-		
-	}
-
-	return false;
-}
-
 void BigRoomba::OnHitPlayer()
 {
 	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
-	if (player == nullptr)
-	{
-		return;
-	}
+	if (player == nullptr) return;
 
 	player->TakeDamage(1);
 }

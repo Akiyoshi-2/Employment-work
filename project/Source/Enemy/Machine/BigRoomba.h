@@ -18,8 +18,6 @@ public:
 
 private:
 
-	bool HasSurfaceAhead(VECTOR nextPos);
-
-	void UpdateRot();
+	
 };
 

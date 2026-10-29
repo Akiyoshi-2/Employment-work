@@ -75,11 +75,11 @@ void BombEnemy::Start()
 
 void BombEnemy::Step()
 {
-	if (m_IsExploded || m_AABB == nullptr) { return; }
+	if (m_IsExploded || m_AABB == nullptr) return;
 
 	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
-	if (player == nullptr) { return; }
+	if (player == nullptr) return;
 
 	VECTOR playerPos = player->GetPos();
 
@@ -91,6 +91,7 @@ void BombEnemy::Step()
 		if (VSize(diff) <= m_SearchRange)
 		{
 			m_State = BOMB_STATE_CHASE;
+
 			// モデル変更
 			ChangeModel("Data/Enemy/Machine/BombEnemy(Hunt).x");
 		}
@@ -101,7 +102,7 @@ void BombEnemy::Step()
 		}
 	}
 
-	// 攻撃状態
+	// 追跡状態
 	if (m_State == BOMB_STATE_CHASE)
 	{
 		VECTOR diff = VSub(playerPos, m_Pos);
@@ -117,37 +118,16 @@ void BombEnemy::Step()
 			m_Move = VGet(0.0f, 0.0f, 0.0f);
 		}
 
-		// 衝突判定
-		VECTOR prevPos = m_Pos;
 		VECTOR nextPos = VAdd(m_Pos, m_Move);
 
-		m_Pos = nextPos;
-
-		const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
-
-		bool hitStage = false;
-
-		// ステージとの当たり判定
-		for (auto obj : stageObjects)
-		{
-			if (obj == nullptr) continue;
-
-			const CollisionAABB* objAABB = obj->GetAABB();
-
-			if (objAABB == nullptr) continue;
-			
-			if (m_AABB->CheckAABB(objAABB))
-			{
-				hitStage = true;
-				break;
-			}
-		}
-
-		m_Pos = prevPos;
-
-		if (hitStage)
+		// EnemyBaseの共通関数でステージとの衝突を判定
+		if (CheckHitStage(nextPos))
 		{
 			Explode();
+		}
+		else
+		{
+			m_Pos = nextPos;
 		}
 	}
 }

@@ -97,6 +97,9 @@
     <ClCompile Include="Source\Enemy\Machine\ShootingEnemy.cpp">
       <Filter>Source\Enemy\Machine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Bullet\EnemyBullet\EnemyBullet.cpp">
+      <Filter>Source\Bullet\EnemyBullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -176,6 +179,9 @@
     </Filter>
     <Filter Include="Source\Enemy\Jungle">
       <UniqueIdentifier>{4f173b53-f1b3-4cdb-bbb1-89086df33609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bullet\EnemyBullet">
+      <UniqueIdentifier>{05ce4d4e-2770-4bd4-a464-599901a7876f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy\Machine\ShootingEnemy.h">
       <Filter>Source\Enemy\Machine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Bullet\EnemyBullet\EnemyBullet.h">
+      <Filter>Source\Bullet\EnemyBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

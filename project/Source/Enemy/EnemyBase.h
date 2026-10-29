@@ -88,6 +88,14 @@ protected:
 	void SetSurfaceFromRotation();
 
 	bool CheckHitStage(VECTOR nextPos);
+
+	// °‚È‚Ç‚Ì‘«ê‚ª‘O•û‚É‚ ‚é‚©’²‚×‚é
+	bool HasSurfaceAhead(VECTOR nextPos);
+
+	// “G‚ÌŒü‚«‚ğXV‚·‚é
+	virtual void UpdateRot();
+
+	
 	
 };
 
