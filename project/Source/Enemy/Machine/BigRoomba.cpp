@@ -158,6 +158,11 @@ EnemyBase* BigRoomba::Clone()
 	// AABB‚Íclone‘¤‚ÅV‚µ‚­ì¬‚·‚é
 	clone->m_AABB = nullptr;
 	return clone;
+
+	printf("ShootingEnemy Scale: %f, %f, %f\n",
+		clone->m_Scale.x,
+		clone->m_Scale.y,
+		clone->m_Scale.z);
 }
 
 void BigRoomba::OnHitPlayer()

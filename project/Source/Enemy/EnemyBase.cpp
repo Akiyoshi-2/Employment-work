@@ -5,6 +5,8 @@
 #include "../StageObject/StageObjectManager.h"
 #include <stdio.h>
 #include <math.h>
+#include <Windows.h>
+#include <string>
 
 EnemyBase::EnemyBase()
 {
@@ -29,6 +31,13 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::Update()
 {
+	std::string message =
+		"Scale: X=" + std::to_string(m_Scale.x) +
+		" Y=" + std::to_string(m_Scale.y) +
+		" Z=" + std::to_string(m_Scale.z) + "\n";
+
+	OutputDebugStringA(message.c_str());
+
 	m_Pos = MyMath::VecAdd(m_Pos, m_Move);
 
 	MV1SetPosition(m_Handle, m_Pos);
@@ -139,6 +148,12 @@ bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 
 	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
 
+	// エネミーの当たり判定サイズを取得
+	VECTOR size = m_AABB->GetSize();
+
+	float width = size.x * 0.5f;
+	float height = size.y * 0.5f;
+
 	CollisionAABB probe;
 	probe.SetTargetPos(&nextPos);
 	probe.SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
@@ -146,20 +161,20 @@ bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 	switch (m_Surface)
 	{
 	case ENEMY_SURFACE_FLOOR:
-		nextPos.y -= 1.1f;
-		nextPos.x += (m_Move.x > 0.0f) ? 0.9f : -0.9;
-		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
+		nextPos.y -= height + 0.1f;
+		nextPos.x += (m_Move.x > 0.0f) ? width + 0.1f : -width - 0.1f;
+		probe.SetSize(VGet(0.1f, 0.1f, size.z));
 		break;
 
 	case ENEMY_SURFACE_WALL:
-		nextPos.y += (m_Move.y > 0.0f) ? 0.9f : -0.9f;
-		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
+		nextPos.y += (m_Move.y > 0.0f) ? height + 0.1f : -height - 0.1f;
+		probe.SetSize(VGet(0.1f, 0.1f, size.z));
 		break;
 
 	case ENEMY_SURFACE_CEILING:
-		nextPos.y += 1.1f;
-		nextPos.x += (m_Move.x > 0.0f) ? 0.9f : -0.9f;
-		probe.SetSize(VGet(0.2f, 0.2f, 1.0f));
+		nextPos.y += height + 0.1f;
+		nextPos.x += (m_Move.x > 0.0f) ? width + 0.1f : -width - 0.1f;
+		probe.SetSize(VGet(0.1f, 0.1f, size.z));
 		break;
 
 	default:

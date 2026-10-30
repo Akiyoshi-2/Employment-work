@@ -36,12 +36,13 @@ void ShootingEnemy::Init()
 	m_AABB = new CollisionAABB();
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-	m_AABB->SetSize(VGet(1.0f, 1.0f, 1.0f));
+	m_AABB->SetSize(VGet(6.0f, 6.0f, 6.0f));
 }
 
 void ShootingEnemy::Load()
 {
-	m_Handle = MV1LoadModel("Data/Enemy/Machine/‚Ü‚¾ì‚Á‚Ä‚È‚¢");
+	m_Handle = MV1LoadModel("Data/Enemy/Machine/ShootingEnemy.x");
+
 }
 
 void ShootingEnemy::Start()
@@ -52,6 +53,8 @@ void ShootingEnemy::Start()
 
 	m_Dir - ENEMY_DIR_RIGHT;
 	m_Move = VGet(MOVE_SPEED, 0.0f, 0.0f);
+
+	m_Scale = VGet(3.0f, 3.0f, 3.0f);
 
 	UpdateRot();
 }
@@ -95,7 +98,10 @@ void ShootingEnemy::Step()
 
 		VECTOR nextPos = VAdd(m_Pos, m_Move);
 
-		if (!HasSurfaceAhead(nextPos) || CheckHitStage(nextPos))
+		bool hasSurface = HasSurfaceAhead(nextPos);
+		bool hitStage = CheckHitStage(nextPos);
+
+		if (!hasSurface || hitStage)
 		{
 			m_TrackDirection *= -1.0f;
 			m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
@@ -179,7 +185,20 @@ void ShootingEnemy::Shoot(VECTOR playerPos)
 
 EnemyBase* ShootingEnemy::Clone()
 {
-	return new ShootingEnemy(*this);
+	ShootingEnemy* clone = new ShootingEnemy();
+
+	clone->m_HP = m_HP;
+	clone->m_Surface = m_Surface;
+	clone->m_Dir = m_Dir;
+	clone->m_Pos = m_Pos;
+	clone->m_Rot = m_Rot;
+	clone->m_Scale = m_Scale;
+	clone->m_Move = m_Move;
+
+	clone->m_Handle = MV1DuplicateModel(m_Handle);
+
+	clone->m_AABB = nullptr;
+	return clone;
 }
 
 void ShootingEnemy::OnHitPlayer()

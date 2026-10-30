@@ -7,7 +7,7 @@
 #include "../../MyMath/MyMath.h"
 #include <vector>
 
-#define MOVE_SPEED 0.1f
+#define MOVE_SPEED 0.05f
 #define SEARCH_RANGE 30.0f
 #define EXPLOSION_RANGE 5.0f
 #define EXPLOSION_DAMAGE 3

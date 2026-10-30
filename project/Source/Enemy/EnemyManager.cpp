@@ -1,6 +1,7 @@
 #include "EnemyManager.h"
 #include "../Enemy/Machine/BigRoomba.h"
 #include "../Enemy/Machine/BombEnemy.h"
+#include "../Enemy/Machine/ShootingEnemy.h"
 #include "../Collision/CollisionAABB.h"
 #include "../Bullet/BulletManager.h"
 #include "../Bullet/BulletBase.h"
@@ -45,6 +46,9 @@ void EnemyManager::Init()
 
 	m_OriginalMachineEnemy[M_ENEMY_01] = new BombEnemy();
 	m_OriginalMachineEnemy[M_ENEMY_01]->Init();
+
+	m_OriginalMachineEnemy[M_ENEMY_02] = new ShootingEnemy();
+	m_OriginalMachineEnemy[M_ENEMY_02]->Init();
 }
 
 void EnemyManager::Load()
@@ -141,9 +145,9 @@ EnemyBase* EnemyManager::CreateEnemy(int id)
 	case M_ENEMY_01:
 		enemy = m_OriginalMachineEnemy[M_ENEMY_01]->Clone();
 		break;
-	/*case M_ENEMY_02:
+	case M_ENEMY_02:
 		enemy = m_OriginalMachineEnemy[M_ENEMY_02]->Clone();
-		break;*/
+		break;
 	}
 
 	if (enemy)
