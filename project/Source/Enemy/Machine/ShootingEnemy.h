@@ -32,6 +32,8 @@ private:
 
 	float m_TrackDirection = 1.0f;
 	
+	bool CheckShootingEnemyFloor(VECTOR nextPos);
+
 	void Shoot(VECTOR playerPos);
 
 };

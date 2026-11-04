@@ -1,4 +1,6 @@
 #include "EnemyBullet.h"
+#include "../../Player/Player.h"
+#include "../../Player/PlayerManager.h"
 
 
 EnemyBullet::EnemyBullet()
@@ -46,6 +48,21 @@ void EnemyBullet::Step()
 void EnemyBullet::Update()
 {
 	BulletBase::Update();
+
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
+
+	if (player == nullptr) return;
+
+	CollisionAABB* playerAABB = player->GetCollisionAABB();
+
+	if (playerAABB == nullptr || player == nullptr) return;
+
+	if (m_AABB->CheckAABB(playerAABB))
+	{
+		player->TakeDamage(1);
+
+		SetDead();
+	}
 }
 
 void EnemyBullet::Draw()
@@ -62,3 +79,4 @@ void EnemyBullet::SetPosition(VECTOR pos)
 {
 	m_Pos = pos;
 }
+

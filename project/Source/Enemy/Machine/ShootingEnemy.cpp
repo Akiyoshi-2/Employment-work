@@ -9,8 +9,8 @@
 #include "../../Bullet/EnemyBullet/EnemyBullet.h"
 #include <vector>
 
-#define MOVE_SPEED 0.3
-#define MOVE_TRACK_SPEED 0.5
+#define MOVE_SPEED 0.2
+#define MOVE_TRACK_SPEED 0.3
 
 ShootingEnemy::ShootingEnemy()
 {
@@ -51,12 +51,13 @@ void ShootingEnemy::Start()
 	m_TrackDirection = 1.0f;
 	m_ShootTimer = 0.0f;
 
-	m_Dir - ENEMY_DIR_RIGHT;
+	m_Dir = ENEMY_DIR_RIGHT;
 	m_Move = VGet(MOVE_SPEED, 0.0f, 0.0f);
 
 	m_Scale = VGet(3.0f, 3.0f, 3.0f);
 
-	UpdateRot();
+	// UpdateRot();
+	m_Rot.y = 0.0f;
 }
 
 void ShootingEnemy::Step()
@@ -98,7 +99,7 @@ void ShootingEnemy::Step()
 
 		VECTOR nextPos = VAdd(m_Pos, m_Move);
 
-		bool hasSurface = HasSurfaceAhead(nextPos);
+		bool hasSurface = CheckShootingEnemyFloor(nextPos);
 		bool hitStage = CheckHitStage(nextPos);
 
 		if (!hasSurface || hitStage)
@@ -107,7 +108,8 @@ void ShootingEnemy::Step()
 			m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
 			m_Move = VGet(0.0f, 0.0f, 0.0f);
 			
-			UpdateRot();
+			// UpdateRot();
+			m_Rot.y = (m_TrackDirection > 0.0f) ? 0.0f : DX_PI_F;
 			return;
 		}
 
@@ -115,7 +117,8 @@ void ShootingEnemy::Step()
 
 		m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
 
-		UpdateRot();
+		// UpdateRot();
+		m_Rot.y = (m_TrackDirection > 0.0f) ? 0.0f : DX_PI_F;
 		return;
 	}
 	// Player追跡
@@ -141,15 +144,55 @@ void ShootingEnemy::Step()
 		);
 
 		// 床があり、障害物にぶつからない場合だけ移動
-		if (HasSurfaceAhead(nextPos) && !CheckHitStage(nextPos))
+		if (CheckShootingEnemyFloor(nextPos) && !CheckHitStage(nextPos))
 		{
 			m_Pos = nextPos;
 		}
 
 		m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
 
-		UpdateRot();
+		// UpdateRot();
+		m_Rot.y = 0.0f;
 	}
+}
+
+bool ShootingEnemy::CheckShootingEnemyFloor(VECTOR nextPos)
+{
+	if (m_AABB == nullptr) return false;
+
+	const std::vector<StageObject*>& stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
+
+	// エネミーのAABBサイズ
+	VECTOR size = m_AABB->GetSize();
+
+	float halfWidth = size.x * 0.5f;
+	float halfHeight = size.y * 0.5f;
+
+	// 床の検出位置
+	nextPos.x += (m_Move.x > 0.0f) ? halfWidth : -halfWidth;
+	nextPos.y -= halfHeight;
+
+	CollisionAABB probe;
+	probe.SetTargetPos(&nextPos);
+	probe.SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
+	probe.SetSize(VGet(size.x, size.y, size.z));
+
+	// ステージとの衝突判定
+	for (auto obj : stageObjects)
+	{
+		if (obj == nullptr) continue;
+
+		const CollisionAABB* objAABB = obj->GetAABB();
+
+		if (objAABB == nullptr) continue;
+
+		if (probe.CheckAABB(objAABB))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void ShootingEnemy::Shoot(VECTOR playerPos)
