@@ -13,16 +13,24 @@ PlayerBullet::PlayerBullet()
 
 PlayerBullet::~PlayerBullet()
 {
-	
+    Fin();
 }
 
 void PlayerBullet::Init()
 {
-	m_AABB = new CollisionAABB();
+	m_Pos = VGet(0.0f, 0.0f, 0.0f);
+	m_Move = VGet(0.0f, 0.0f, 0.0f);
+	m_IsDead = false;
 
+    if (m_AABB != nullptr)
+    {
+        delete m_AABB;
+        m_AABB = nullptr;
+    }
+
+	m_AABB = new CollisionAABB();
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-
 	m_AABB->SetSize(VGet(2.0f, 2.0f, 2.0f));
 }
 
@@ -74,6 +82,8 @@ void PlayerBullet::Update()
 
 void PlayerBullet::Draw()
 {
+    if (m_Handle == -1) return;
+
     DrawBillboard3D(
         m_Pos,
         0.5f,       // ‰æ‘œ’†‰›(X)
@@ -85,14 +95,19 @@ void PlayerBullet::Draw()
         FALSE,      // ¶‰E”½“]
         FALSE       // ã‰º”½“]
     );
-
-    // “–‚½‚è”»’è•`‰æ
+ // “–‚½‚è”»’è•`‰æ
     if (m_AABB != nullptr)
     {
         m_AABB->Draw();
     }
+   
 }
 
 void PlayerBullet::Fin()
 {
+    if (m_Handle != -1)
+    {
+		DeleteGraph(m_Handle);
+		m_Handle = -1;
+    }
 }

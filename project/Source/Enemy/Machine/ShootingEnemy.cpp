@@ -9,8 +9,8 @@
 #include "../../Bullet/EnemyBullet/EnemyBullet.h"
 #include <vector>
 
-#define MOVE_SPEED 0.2
-#define MOVE_TRACK_SPEED 0.3
+#define MOVE_SPEED 0.15
+#define MOVE_TRACK_SPEED 0.25
 
 ShootingEnemy::ShootingEnemy()
 {
@@ -50,13 +50,15 @@ void ShootingEnemy::Start()
 	m_State = SHOOTING_NORMAL;
 	m_TrackDirection = 1.0f;
 	m_ShootTimer = 0.0f;
+	m_SearchRange = 50.0f;
+	m_ShootRange = 50.0f;
+	m_ShootInterval = 1.0f;
 
 	m_Dir = ENEMY_DIR_RIGHT;
 	m_Move = VGet(MOVE_SPEED, 0.0f, 0.0f);
 
 	m_Scale = VGet(3.0f, 3.0f, 3.0f);
 
-	// UpdateRot();
 	m_Rot.y = 0.0f;
 }
 
@@ -107,8 +109,7 @@ void ShootingEnemy::Step()
 			m_TrackDirection *= -1.0f;
 			m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
 			m_Move = VGet(0.0f, 0.0f, 0.0f);
-			
-			// UpdateRot();
+						
 			m_Rot.y = (m_TrackDirection > 0.0f) ? 0.0f : DX_PI_F;
 			return;
 		}
@@ -117,7 +118,6 @@ void ShootingEnemy::Step()
 
 		m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
 
-		// UpdateRot();
 		m_Rot.y = (m_TrackDirection > 0.0f) ? 0.0f : DX_PI_F;
 		return;
 	}
@@ -132,27 +132,43 @@ void ShootingEnemy::Step()
 			m_TrackDirection = (diffX > 0.0f) ? 1.0f : -1.0f;
 		}
 
+		//デバッグ用
+		printf("distance: %f\n", distance);
+		printf("ShootRange: %f\n", m_ShootRange);
+		printf("ShootTimer: %f\n", m_ShootTimer);
+		////////////
+
 		// 射程内なら射撃
 		if (distance <= m_ShootRange && m_ShootTimer <= 0.0f)
 		{
+			// デバッグ用
+			printf("Shoot Start!\n");
+			/////////////
+
 			Shoot(playerPos);
 			m_ShootTimer = m_ShootInterval;
 		}
 
-		// プレイヤーの方向へ移動
-		VECTOR nextPos = VAdd(m_Pos, VGet(MOVE_TRACK_SPEED * m_TrackDirection, 0.0f, 0.0f)
-		);
+		m_Move = VGet(MOVE_TRACK_SPEED * m_TrackDirection, 0.0f, 0.0f);
+
+		VECTOR nextPos = VAdd(m_Pos, m_Move);
+
+		bool hasSurface = CheckShootingEnemyFloor(nextPos);
+		bool hitStage = CheckHitStage(nextPos);
 
 		// 床があり、障害物にぶつからない場合だけ移動
-		if (CheckShootingEnemyFloor(nextPos) && !CheckHitStage(nextPos))
+		if (hasSurface && !hitStage)
 		{
 			m_Pos = nextPos;
+		}
+		else
+		{
+			m_Move = VGet(0.0f, 0.0f, 0.0f);
 		}
 
 		m_Dir = (m_TrackDirection > 0.0f) ? ENEMY_DIR_RIGHT : ENEMY_DIR_LEFT;
 
-		// UpdateRot();
-		m_Rot.y = 0.0f;
+		m_Rot.y = (m_TrackDirection > 0.0f) ? 0.0f : DX_PI_F;
 	}
 }
 
@@ -197,33 +213,36 @@ bool ShootingEnemy::CheckShootingEnemyFloor(VECTOR nextPos)
 
 void ShootingEnemy::Shoot(VECTOR playerPos)
 {
-	BulletManager* bulletManager = BulletManager::GetInstance();
-	if (bulletManager == nullptr) return;
-
 	EnemyBullet* bullet = new EnemyBullet();
 
 	bullet->Init();
+	bullet->Load();
 
+	// 弾の発射位置を計算
 	bullet->SetPosition(m_Pos);
 
+	// プレイヤーの方向を計算
 	VECTOR direction = VSub(playerPos, m_Pos);
+
 	float distance = VSize(direction);
 
 	if (distance > 0.001f)
 	{
-		direction = VScale(direction, 1.0f / distance);
+		direction = VScale(direction, 1.0f / distance); 
 	}
 	else
 	{
-		direction = VGet(1.0f, 0.0f, 0.0f);
+		direction = VGet(0.0f, 0.0f, 1.0f); 
 	}
 
-	const float BULLET_SPEED = 0.8f;
+	// 弾速
+	const float BULLET_SPEED = 0.4f;
 
 	direction = VScale(direction, BULLET_SPEED);
+
 	bullet->SetDirection(direction);
 
-	bulletManager->AddBullet(bullet);
+	BulletManager::GetInstance()->AddBullet(bullet);
 }
 
 EnemyBase* ShootingEnemy::Clone()
@@ -246,5 +265,9 @@ EnemyBase* ShootingEnemy::Clone()
 
 void ShootingEnemy::OnHitPlayer()
 {
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
+	if (player == nullptr) return;
+
+	player->TakeDamage(1);
 }

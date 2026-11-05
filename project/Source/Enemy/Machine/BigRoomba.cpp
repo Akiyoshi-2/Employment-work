@@ -19,7 +19,7 @@ BigRoomba::~BigRoomba()
 
 void BigRoomba::Init()
 {
-	m_HP = 20;
+	m_HP = 10;
 
 	m_Surface = ENEMY_SURFACE_NONE;
 	m_Dir = ENEMY_DIR_NONE;
@@ -65,9 +65,6 @@ void BigRoomba::Start()
 
 	UpdateRot();
 }
-
-
-
 
 void BigRoomba::Step()
 {
@@ -158,11 +155,6 @@ EnemyBase* BigRoomba::Clone()
 	// AABB‚Íclone‘¤‚ÅV‚µ‚­ì¬‚·‚é
 	clone->m_AABB = nullptr;
 	return clone;
-
-	printf("ShootingEnemy Scale: %f, %f, %f\n",
-		clone->m_Scale.x,
-		clone->m_Scale.y,
-		clone->m_Scale.z);
 }
 
 void BigRoomba::OnHitPlayer()

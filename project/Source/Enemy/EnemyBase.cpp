@@ -31,13 +31,6 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::Update()
 {
-	std::string message =
-		"Scale: X=" + std::to_string(m_Scale.x) +
-		" Y=" + std::to_string(m_Scale.y) +
-		" Z=" + std::to_string(m_Scale.z) + "\n";
-
-	OutputDebugStringA(message.c_str());
-
 	m_Pos = MyMath::VecAdd(m_Pos, m_Move);
 
 	MV1SetPosition(m_Handle, m_Pos);
@@ -160,16 +153,6 @@ bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 	probe.SetTargetPos(&nextPos);
 	probe.SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 
-	char debug[256];
-
-	sprintf_s(debug,
-		"Surface: %d / MoveX: %.2f / MoveY: %.2f\n",
-		(int)m_Surface,
-		m_Move.x,
-		m_Move.y);
-
-	OutputDebugStringA(debug);
-
 	switch (m_Surface)
 	{
 	case ENEMY_SURFACE_FLOOR:
@@ -177,16 +160,6 @@ bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 		nextPos.x += (m_Move.x > 0.0f) ? width + 0.1f : -width - 0.1f;
 		probe.SetSize(VGet(0.1f, 0.1f, size.z));
 
-		// デバッグ用の出力 //////////
-		char debug[256];
-
-		sprintf_s(debug,
-			"[FloorCheck] Size: %.2f, %.2f, %.2f / ProbePos: %.2f, %.2f, %.2f\n",
-			size.x, size.y, size.z,
-			nextPos.x, nextPos.y, nextPos.z);
-
-		OutputDebugStringA(debug);
-		///////////////////////////////
 		break;
 
 	case ENEMY_SURFACE_WALL:
@@ -213,16 +186,9 @@ bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 
 		if (probe.CheckAABB(objAABB))
 		{
-			// デバッグ用の出力 //////////
-			OutputDebugStringA("[FloorCheck] 床を検出しました\n");
-			//////////////////////////////
-
 			return true;
 		}
 	}
-	// デバッグ用の出力 //////////
-	OutputDebugStringA("[FloorCheck] 床を検出できませんでした\n");
-	//////////////////////////////
 	return false;
 }
 

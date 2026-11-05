@@ -5,6 +5,7 @@
 #include "../Collision/CollisionAABB.h"
 #include "../Bullet/BulletManager.h"
 #include "../Bullet/BulletBase.h"
+#include "../Bullet/EnemyBullet/EnemyBullet.h"
 
 
 EnemyManager* EnemyManager::m_Instance = nullptr;
@@ -205,6 +206,7 @@ void EnemyManager::CheckHitPlayerBullet()
 
 	const auto& bullets = bulletManager->GetBullets();
 
+	// プレイヤーの弾と敵の当たり判定
 	for (auto bullet : bullets)
 	{
 		if (bullet == nullptr || bullet->IsDead()) continue;
@@ -213,6 +215,7 @@ void EnemyManager::CheckHitPlayerBullet()
 
 		if (bulletAABB == nullptr) continue;
 
+		// 敵のリストをループして当たり判定をチェック
 		for (auto enemy : m_EnemyList)
 		{
 			if (enemy == nullptr || enemy->IsDefeated()) continue;
@@ -221,6 +224,7 @@ void EnemyManager::CheckHitPlayerBullet()
 
 			if (enemyAABB == nullptr) continue;
 
+			// 弾と敵が当たった場合の処理
 			if (bulletAABB->CheckAABB(enemyAABB))
 			{
 				bullet->SetDead();

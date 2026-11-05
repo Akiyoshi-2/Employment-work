@@ -13,6 +13,7 @@ public:
 	void Step() override;
 	void Update() override;
 	void Draw() override;
+	void Fin() override;
 	
 	void SetDirection(VECTOR direction);
 	void SetPosition(VECTOR pos);
