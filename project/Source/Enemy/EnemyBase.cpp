@@ -65,6 +65,7 @@ void EnemyBase::Fin()
 	}
 }
 
+// 回転から今いる面を判定する
 void EnemyBase::SetSurfaceFromRotation()
 {
 	const float HALF_PI = DX_PI_F * 0.5f;
@@ -101,6 +102,7 @@ void EnemyBase::SetSurfaceFromRotation()
 	}
 }
 
+// エネミーの次の座標がステージに当たるかどうかを判定する
 bool EnemyBase::CheckHitStage(VECTOR nextPos)
 {
 	if (m_AABB == nullptr)
@@ -137,6 +139,7 @@ bool EnemyBase::CheckHitStage(VECTOR nextPos)
 	return isHit;
 }
 
+// エネミーの進行方向に地面があるかどうかを判定する
 bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 {
 	if (m_AABB == nullptr) return false;
@@ -192,6 +195,7 @@ bool EnemyBase::HasSurfaceAhead(VECTOR nextPos)
 	return false;
 }
 
+// エネミーの向きを更新する
 void EnemyBase::UpdateRot()
 {
 	const float HALF_PI = DX_PI_F * 0.5f;
