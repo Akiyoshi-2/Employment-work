@@ -39,8 +39,6 @@ Player::Player()
 
 	m_NowAnim = PlayerAnimationType::IDLE;
 
-	
-
 	m_BulletManager = nullptr;
 
 	m_BulletCoolTime = 0.0f;

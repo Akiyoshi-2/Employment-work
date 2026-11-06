@@ -1,3 +1,4 @@
+#include "DxLib.h"
 #include "ShootingEnemy.h"
 #include "../../Collision/CollisionAABB.h"
 #include "../../StageObject/StageObject.h"
@@ -14,6 +15,7 @@
 
 ShootingEnemy::ShootingEnemy()
 {
+	
 }
 
 ShootingEnemy::~ShootingEnemy()
@@ -37,6 +39,8 @@ void ShootingEnemy::Init()
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 	m_AABB->SetSize(VGet(6.0f, 6.0f, 6.0f));
+
+	m_BulletManager = BulletManager::GetInstance();
 }
 
 void ShootingEnemy::Load()
@@ -51,7 +55,6 @@ void ShootingEnemy::Start()
 	m_TrackDirection = 1.0f;
 	m_ShootTimer = 0.0f;
 	m_SearchRange = 50.0f;
-	m_ShootRange = 50.0f;
 	m_ShootInterval = 1.0f;
 
 	m_Dir = ENEMY_DIR_RIGHT;
@@ -132,19 +135,9 @@ void ShootingEnemy::Step()
 			m_TrackDirection = (diffX > 0.0f) ? 1.0f : -1.0f;
 		}
 
-		//デバッグ用
-		printf("distance: %f\n", distance);
-		printf("ShootRange: %f\n", m_ShootRange);
-		printf("ShootTimer: %f\n", m_ShootTimer);
-		////////////
-
 		// 射程内なら射撃
-		if (distance <= m_ShootRange && m_ShootTimer <= 0.0f)
+		if (m_ShootTimer <= 0.0f)
 		{
-			// デバッグ用
-			printf("Shoot Start!\n");
-			/////////////
-
 			Shoot(playerPos);
 			m_ShootTimer = m_ShootInterval;
 		}
@@ -171,6 +164,20 @@ void ShootingEnemy::Step()
 		m_Rot.y = (m_TrackDirection > 0.0f) ? 0.0f : DX_PI_F;
 	}
 }
+
+// デバッグ用
+void ShootingEnemy::Draw()
+{
+	EnemyBase::Draw();
+
+	DrawString(
+		20, 20,
+		m_IsShootCalled ? "1. Shoot : YES" : "1. Shoot : NO",
+		GetColor(255, 255, 255)
+	);
+}
+//////////////
+
 
 bool ShootingEnemy::CheckShootingEnemyFloor(VECTOR nextPos)
 {
@@ -213,13 +220,16 @@ bool ShootingEnemy::CheckShootingEnemyFloor(VECTOR nextPos)
 
 void ShootingEnemy::Shoot(VECTOR playerPos)
 {
+	// デバッグ用
+	m_IsShootCalled = true;
+	/////////////
+
+	if (m_BulletManager == nullptr) return;
+
 	EnemyBullet* bullet = new EnemyBullet();
 
 	bullet->Init();
 	bullet->Load();
-
-	// 弾の発射位置を計算
-	bullet->SetPosition(m_Pos);
 
 	// プレイヤーの方向を計算
 	VECTOR direction = VSub(playerPos, m_Pos);
@@ -238,11 +248,20 @@ void ShootingEnemy::Shoot(VECTOR playerPos)
 	// 弾速
 	const float BULLET_SPEED = 0.4f;
 
-	direction = VScale(direction, BULLET_SPEED);
+	// 発射位置を設定
+	bullet->SetPos(m_Pos.x + direction.x * 2.0f, m_Pos.y + direction.y * 2.0f, m_Pos.z + direction.z * 2.0f);
+	// 移動量を設定
+	bullet->SetMove(direction.x * BULLET_SPEED, direction.y * BULLET_SPEED, direction.z * BULLET_SPEED);
 
-	bullet->SetDirection(direction);
+	m_BulletManager->AddBullet(bullet);
 
-	BulletManager::GetInstance()->AddBullet(bullet);
+	//デバッグ
+	DrawString(
+		20, 140,
+		"EnemyBullet AddBullet OK",
+		GetColor(255, 255, 255)
+	);
+	//////////
 }
 
 EnemyBase* ShootingEnemy::Clone()

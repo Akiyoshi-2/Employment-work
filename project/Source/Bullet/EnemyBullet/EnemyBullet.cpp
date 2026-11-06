@@ -1,8 +1,10 @@
+#include "DxLib.h"
 #include "EnemyBullet.h"
 #include "../../Player/Player.h"
 #include "../../Player/PlayerManager.h"
 #include "../../Collision/CollisionAABB.h"
-#include <cmath>
+#include "../../StageObject/StageObject.h"
+#include "../../StageObject/StageObjectManager.h"
 
 
 EnemyBullet::EnemyBullet()
@@ -45,6 +47,7 @@ void EnemyBullet::Update()
 {
 	BulletBase::Update();
 
+	// プレイヤーとの当たり判定
 	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
 	if (player == nullptr || m_AABB == nullptr) return;
@@ -58,10 +61,39 @@ void EnemyBullet::Update()
 		player->TakeDamage(1);
 		SetDead();
 	}
+
+	// ステージとの当たり判定
+	auto stageObjects = StageObjectManager::GetInstance()->GetStageObjects();
+
+	for (auto obj : stageObjects)
+	{
+		if (!obj) continue;
+
+		const CollisionAABB* objAABB = obj->GetAABB();
+
+		if (!objAABB)
+			continue;
+
+		// 弾とステージが当たった
+		if (m_AABB->CheckAABB(objAABB))
+		{
+			SetDead();
+			break;
+		}
+	}
 }
 
 void EnemyBullet::Draw()
 {
+	// デバッグ
+	DrawFormatString(
+		20, 110,
+		GetColor(255, 255, 255),
+		"2. EnemyBullet Handle : %d",
+		m_Handle
+	);
+	///////////
+
 	if (m_Handle == -1) return;
 
 	MV1SetPosition(m_Handle, m_Pos);

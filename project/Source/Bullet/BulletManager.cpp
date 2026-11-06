@@ -49,6 +49,15 @@ void BulletManager::Update()
 
 void BulletManager::Draw()
 {
+    // デバッグ用
+    DrawFormatString(
+        20, 80,
+        GetColor(255, 255, 255),
+        "Bullet Count : %d",
+        (int)m_BulletList.size()
+    );
+    /////////////
+
     for (auto bullet : m_BulletList)
     {
         bullet->Draw();

@@ -1,5 +1,6 @@
 #pragma once 
 #include "../EnemyBase.h"
+#include "../../Bullet/BulletManager.h"
 
 class ShootingEnemy : public EnemyBase
 {
@@ -11,6 +12,11 @@ public:
 	void Load() override;
 	void Start() override;
 	void Step() override;
+
+	// デバッグ用
+	void Draw() override;
+	/////////////
+
 
 	EnemyBase* Clone() override;
 
@@ -25,8 +31,9 @@ private:
 
 	ShootingState m_State = SHOOTING_NORMAL;
 
+	BulletManager* m_BulletManager;
+
 	float m_SearchRange;
-	float m_ShootRange;
 	float m_ShootInterval;
 	float m_ShootTimer;
 
@@ -36,5 +43,7 @@ private:
 
 	void Shoot(VECTOR playerPos);
 
+	// デバッグ用
+	bool m_IsShootCalled = false;
 };
 
