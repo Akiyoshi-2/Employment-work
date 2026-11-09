@@ -13,11 +13,6 @@ public:
 	void Start() override;
 	void Step() override;
 
-	// デバッグ用
-	void Draw() override;
-	/////////////
-
-
 	EnemyBase* Clone() override;
 
 	void OnHitPlayer() override;
@@ -42,8 +37,5 @@ private:
 	bool CheckShootingEnemyFloor(VECTOR nextPos);
 
 	void Shoot(VECTOR playerPos);
-
-	// デバッグ用
-	bool m_IsShootCalled = false;
 };
 

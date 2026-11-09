@@ -10,12 +10,15 @@
 #include "../../Bullet/EnemyBullet/EnemyBullet.h"
 #include <vector>
 
-#define MOVE_SPEED 0.15
-#define MOVE_TRACK_SPEED 0.25
+#define MOVE_SPEED 0.1
+#define MOVE_TRACK_SPEED 0.15
 
 ShootingEnemy::ShootingEnemy()
 {
-	
+	m_BulletManager = nullptr;
+	m_SearchRange = 0.0f;
+	m_ShootInterval = 0.0f;
+	m_ShootTimer = 0.0f;
 }
 
 ShootingEnemy::~ShootingEnemy()
@@ -165,20 +168,6 @@ void ShootingEnemy::Step()
 	}
 }
 
-// デバッグ用
-void ShootingEnemy::Draw()
-{
-	EnemyBase::Draw();
-
-	DrawString(
-		20, 20,
-		m_IsShootCalled ? "1. Shoot : YES" : "1. Shoot : NO",
-		GetColor(255, 255, 255)
-	);
-}
-//////////////
-
-
 bool ShootingEnemy::CheckShootingEnemyFloor(VECTOR nextPos)
 {
 	if (m_AABB == nullptr) return false;
@@ -220,10 +209,6 @@ bool ShootingEnemy::CheckShootingEnemyFloor(VECTOR nextPos)
 
 void ShootingEnemy::Shoot(VECTOR playerPos)
 {
-	// デバッグ用
-	m_IsShootCalled = true;
-	/////////////
-
 	if (m_BulletManager == nullptr) return;
 
 	EnemyBullet* bullet = new EnemyBullet();
@@ -248,20 +233,18 @@ void ShootingEnemy::Shoot(VECTOR playerPos)
 	// 弾速
 	const float BULLET_SPEED = 0.4f;
 
+	// エネミーの前方方向を計算
+	VECTOR forward = VGet(sinf(m_Rot.y), 0.0f, cosf(m_Rot.y));
+
+	// エネミーの右方向を計算
+	VECTOR right = VGet(cosf(m_Rot.y), 0.0f, -sinf(m_Rot.y));
+
 	// 発射位置を設定
-	bullet->SetPos(m_Pos.x + direction.x * 2.0f, m_Pos.y + direction.y * 2.0f, m_Pos.z + direction.z * 2.0f);
+	bullet->SetPos(m_Pos.x + right.x * 3.0f, m_Pos.y, m_Pos.z + forward.z * 2.0f);
 	// 移動量を設定
 	bullet->SetMove(direction.x * BULLET_SPEED, direction.y * BULLET_SPEED, direction.z * BULLET_SPEED);
 
 	m_BulletManager->AddBullet(bullet);
-
-	//デバッグ
-	DrawString(
-		20, 140,
-		"EnemyBullet AddBullet OK",
-		GetColor(255, 255, 255)
-	);
-	//////////
 }
 
 EnemyBase* ShootingEnemy::Clone()

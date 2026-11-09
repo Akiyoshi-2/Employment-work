@@ -35,6 +35,7 @@ protected:
     VECTOR m_Pos;
     VECTOR m_Move;
 
+
     bool m_IsDead;
 
     CollisionAABB* m_AABB;

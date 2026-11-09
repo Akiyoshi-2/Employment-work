@@ -5,6 +5,7 @@
 #include "../Collision/CollisionAABB.h"
 #include "../Bullet/BulletManager.h"
 #include "../Bullet/BulletBase.h"
+#include "../Bullet/PlayerBullet/PlayerBullet.h"
 #include "../Bullet/EnemyBullet/EnemyBullet.h"
 
 
@@ -211,7 +212,11 @@ void EnemyManager::CheckHitPlayerBullet()
 	{
 		if (bullet == nullptr || bullet->IsDead()) continue;
 
-		CollisionAABB* bulletAABB = bullet->GetCollisionAABB();
+		PlayerBullet* playerBullet = dynamic_cast<PlayerBullet*>(bullet);
+
+		if (playerBullet == nullptr) continue;
+
+		CollisionAABB* bulletAABB = playerBullet->GetCollisionAABB();
 
 		if (bulletAABB == nullptr) continue;
 
@@ -224,10 +229,10 @@ void EnemyManager::CheckHitPlayerBullet()
 
 			if (enemyAABB == nullptr) continue;
 
-			// ’e‚Æ“G‚ª“–‚½‚Á‚½ê‡‚Ìˆ—
+			// ’e‚Æ“G‚ª“–‚½‚Á‚½ê‡
 			if (bulletAABB->CheckAABB(enemyAABB))
 			{
-				bullet->SetDead();
+				playerBullet->SetDead();
 
 				enemy->TakeDamage(1);
 

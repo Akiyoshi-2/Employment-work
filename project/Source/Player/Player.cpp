@@ -23,7 +23,7 @@ struct PlayerAnimParam
 	int height;
 };
 
-Player::Player()
+Player::Player() : m_Animation{}
 {
 	m_HP = 10;		// HP
 	m_Size = 5.0f;	// プレイヤーサイズ
@@ -50,6 +50,8 @@ Player::Player()
 
 	m_InvincibleTimer = 0.0f;
 	m_IsVisible = true;
+
+	
 }
 
 Player::~Player()

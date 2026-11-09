@@ -22,10 +22,12 @@ void EnemyBullet::Init()
 	m_Move = VGet(0.0f, 0.0f, 0.0f);
 	m_IsDead = false;
 
+	// 当たり判定の生成
 	m_AABB = new CollisionAABB();
+
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
-	m_AABB->SetSize(VGet(0.5f, 0.5f, 0.5f));
+	m_AABB->SetSize(VGet(2.0f, 2.0f, 2.0f));
 }
 
 void EnemyBullet::Load()
@@ -85,15 +87,6 @@ void EnemyBullet::Update()
 
 void EnemyBullet::Draw()
 {
-	// デバッグ
-	DrawFormatString(
-		20, 110,
-		GetColor(255, 255, 255),
-		"2. EnemyBullet Handle : %d",
-		m_Handle
-	);
-	///////////
-
 	if (m_Handle == -1) return;
 
 	MV1SetPosition(m_Handle, m_Pos);
