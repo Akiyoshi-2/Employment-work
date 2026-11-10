@@ -162,6 +162,10 @@
     <ClCompile Include="Source\Enemy\Machine\ShootingEnemy.cpp" />
     <ClCompile Include="Source\FPS\FPS.cpp" />
     <ClCompile Include="Source\Input\Input.cpp" />
+    <ClCompile Include="Source\Item\DropItem\DropItem.cpp" />
+    <ClCompile Include="Source\Item\ItemBase.cpp" />
+    <ClCompile Include="Source\Item\ItemManager.cpp" />
+    <ClCompile Include="Source\Item\SpawnItem\SpawnItem.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MyMath\MyMath.cpp" />
     <ClCompile Include="Source\Player\Player.cpp" />
@@ -198,6 +202,11 @@
     <ClInclude Include="Source\Enemy\Machine\ShootingEnemy.h" />
     <ClInclude Include="Source\FPS\FPS.h" />
     <ClInclude Include="Source\Input\Input.h" />
+    <ClInclude Include="Source\Item\DropItem\DropItem.h" />
+    <ClInclude Include="Source\Item\ItemBase.h" />
+    <ClInclude Include="Source\Item\ItemManager.h" />
+    <ClInclude Include="Source\Item\ItemParameter.h" />
+    <ClInclude Include="Source\Item\SpawnItem\SpawnItem.h" />
     <ClInclude Include="Source\Library\json\json.hpp" />
     <ClInclude Include="Source\MyMath\MyMath.h" />
     <ClInclude Include="Source\Player\Player.h" />

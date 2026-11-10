@@ -11,7 +11,7 @@ StageObjectManager::StageObjectManager()
 {
 	m_StageObjects = {};
 	m_OriginalBlock = nullptr;
-	
+	m_StageType = StageType::NONE;
 }
 
 StageObjectManager::~StageObjectManager()

@@ -16,6 +16,7 @@ public:
 		JUNGLE_PLANET,
 		LAVA_PLANET,
 		POLLUTION_PLANET,
+		NONE = -1,
 	};
 
 	StageObjectManager();

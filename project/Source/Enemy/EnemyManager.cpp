@@ -220,7 +220,7 @@ void EnemyManager::CheckHitPlayerBullet()
 
 		if (bulletAABB == nullptr) continue;
 
-		// 敵のリストをループして当たり判定をチェック
+		// エネミーのリストをループして当たり判定をチェック
 		for (auto enemy : m_EnemyList)
 		{
 			if (enemy == nullptr || enemy->IsDefeated()) continue;
@@ -229,7 +229,7 @@ void EnemyManager::CheckHitPlayerBullet()
 
 			if (enemyAABB == nullptr) continue;
 
-			// 弾と敵が当たった場合
+			// 弾とエネミーが当たった場合
 			if (bulletAABB->CheckAABB(enemyAABB))
 			{
 				playerBullet->SetDead();

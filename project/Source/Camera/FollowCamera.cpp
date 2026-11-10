@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "FollowCamera.h"
+#include "../MyMath/MyMath.h"
 
 
 #define CAMERA_NEAR_CLIP 1.0f
@@ -40,7 +41,7 @@ void FollowCamera::Step()
 
 void FollowCamera::Update()
 {
-	m_Pos = VAdd(m_TargetPos, m_Offset);
+	m_Pos = MyMath::VecAdd(m_TargetPos, m_Offset);
 
 	SetCameraPositionAndTarget_UpVecY(m_Pos, m_TargetPos);
 }
