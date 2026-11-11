@@ -3,18 +3,17 @@
 #include "../../External/nlohmann/json.hpp"
 #include <string>
 
-// 敵からドロップするアイテム
-enum DROP_ITEM
+enum ITEM_ID
 {
-	DROP_ITEM_00,
-	DROP_ITEM_01,
-	DROP_ITEM_02,
+	ITEM_HEAL,
+	ITEM_SPEED_UP,
+	ITEM_DAMAGE_UP,
+	ITEM_INVINCIBLE,
+	ITEM_MAX
 };
 
-// マップ内に生成されるアイテム
-enum SPAWN_ITEM
+enum ITEM_CREATE_TYPE
 {
-	SPAWN_ITEM_00,	// 回復アイテム
-	SPAWN_ITEM_01,	// 攻撃力アップアイテム
-	SPAWN_ITEM_02,	// 無敵化アイテム
+	ITEM_CREATE_MAP,
+	ITEM_CREATE_DROP,
 };

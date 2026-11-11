@@ -106,11 +106,8 @@
     <ClCompile Include="Source\Item\ItemBase.cpp">
       <Filter>Source\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Item\SpawnItem\SpawnItem.cpp">
-      <Filter>Source\Item\SpawnItem</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Item\DropItem\DropItem.cpp">
-      <Filter>Source\Item\DropItem</Filter>
+    <ClCompile Include="Source\Item\NormalItem.cpp">
+      <Filter>Source\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,12 +194,6 @@
     </Filter>
     <Filter Include="Source\Item">
       <UniqueIdentifier>{f8953a80-0319-4d33-a021-9aff925c24c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Item\SpawnItem">
-      <UniqueIdentifier>{0efa3902-a30c-4ab1-9bd5-135070e236de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Item\DropItem">
-      <UniqueIdentifier>{67478c8b-597b-4d56-9938-61f4f38396f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -323,13 +314,10 @@
     <ClInclude Include="Source\Item\ItemBase.h">
       <Filter>Source\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Item\SpawnItem\SpawnItem.h">
-      <Filter>Source\Item\SpawnItem</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Item\DropItem\DropItem.h">
-      <Filter>Source\Item\DropItem</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Item\ItemParameter.h">
+      <Filter>Source\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item\NormalItem.h">
       <Filter>Source\Item</Filter>
     </ClInclude>
   </ItemGroup>

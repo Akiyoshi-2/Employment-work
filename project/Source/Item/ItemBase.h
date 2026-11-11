@@ -1,5 +1,6 @@
 #pragma once
 #include "DxLib.h"
+#include "ItemParameter.h"
 #include <vector>
 
 class CollisionAABB;
@@ -9,7 +10,7 @@ class ItemBase
 {
 public:
 	ItemBase();
-	~ItemBase();
+	virtual~ItemBase();
 
 	virtual void Init() = 0;
 	virtual void Load() = 0;
@@ -41,6 +42,8 @@ protected:
 	VECTOR m_Scale;
 	VECTOR m_Move;
 	VECTOR m_PrevPos;
+
+	ITEM_ID m_ItemID;
 
 	CollisionAABB* m_AABB;
 

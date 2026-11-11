@@ -5,7 +5,10 @@ ItemManager* ItemManager::m_Instance = nullptr;
 
 ItemManager::ItemManager()
 {
-
+	for (int i = 0; i < ITEM_MAX; i++)
+	{
+		m_OriginalItem[i] = nullptr;
+	}
 }
 
 ItemManager::~ItemManager()
