@@ -15,6 +15,9 @@ public:
     void Draw() override;
     void Fin() override;
 
+    void SetDamage(int damage) { m_Damage = damage; }
+    int GetDamage() const { return m_Damage; }
 
 private:
+    int m_Damage = 1;
 };

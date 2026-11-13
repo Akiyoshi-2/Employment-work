@@ -234,7 +234,7 @@ void EnemyManager::CheckHitPlayerBullet()
 			{
 				playerBullet->SetDead();
 
-				enemy->TakeDamage(1);
+				enemy->TakeDamage(playerBullet->GetDamage());
 
 				break;
 			}

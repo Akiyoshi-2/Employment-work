@@ -27,7 +27,7 @@ public:
 	ItemBase* CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType);
 	ItemBase* CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType, VECTOR pos, VECTOR rot, VECTOR scale);
 
-	bool CheckHitPlayer(const CollisionAABB* playerAABB) const;
+	void CheckHitPlayer(const CollisionAABB* playerAABB);
 
 private:
 	static ItemManager* m_Instance;

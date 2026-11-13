@@ -34,6 +34,13 @@ public:
 
 	virtual void ItemDrop(VECTOR pos) {}
 
+	void SetItemID(ITEM_ID id)
+	{
+		m_ItemID = id;
+	}
+
+	CollisionAABB* GetCollisionAABB() const { return m_AABB; }
+
 protected:
 	int m_Handle;
 

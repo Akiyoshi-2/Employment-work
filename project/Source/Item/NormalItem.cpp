@@ -13,7 +13,11 @@ NormalItem::~NormalItem()
 
 void NormalItem::Init()
 {
-	
+	m_AABB = new CollisionAABB();
+
+	m_AABB->SetTargetPos(&m_Pos);
+	m_AABB->SetSize(VGet(1.0f, 1.0f, 1.0f));
+	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 }
 
 void NormalItem::Load()
@@ -21,19 +25,19 @@ void NormalItem::Load()
 	switch (m_ItemID)
 	{
 	case ITEM_HEAL:
-		m_Handle = MV1LoadModel("Data/Item/未制作");
+		m_Handle = MV1LoadModel("Data/Item/HealBox.x");
 		break;
 
 	case ITEM_SPEED_UP:
-		m_Handle = MV1LoadModel("Data/Item/未制作");
+		m_Handle = MV1LoadModel("Data/Item/SpeedBox.x");
 		break;
 
 	case ITEM_DAMAGE_UP:
-		m_Handle = MV1LoadModel("Data/Item/未制作");
+		m_Handle = MV1LoadModel("Data/Item/PowerBox.x");
 		break;
 
 	case ITEM_INVINCIBLE:
-		m_Handle = MV1LoadModel("Data/Item/未制作");
+		m_Handle = MV1LoadModel("Data/Item/InvincibleBox.x");
 		break;
 	}
 }
@@ -58,6 +62,7 @@ NormalItem* NormalItem::Clone()
 	clone->m_Scale = m_Scale;
 
 	clone->m_Handle = MV1DuplicateModel(m_Handle);
+	clone->m_AABB = nullptr;
 
 	return clone;
 }
@@ -72,23 +77,43 @@ void NormalItem::PlayerGetItem()
 	{
 	case ITEM_HEAL:
 		// HP回復
-
+		Hear();
 		break;
 
 	case ITEM_SPEED_UP:
 		// 移動速度アップ
-
+		SpeedUp();
 		break;
 
 	case ITEM_DAMAGE_UP:
 		// 射撃ダメージアップ
-
+		DamageUp();
 		break;
 
 	case ITEM_INVINCIBLE:
 		// 無敵状態
-
+		Invincible();
 		break;
 	
 	}
+}
+
+void NormalItem::Hear()
+{
+	
+}
+
+void NormalItem::SpeedUp()
+{
+
+}
+
+void NormalItem::DamageUp()
+{
+
+}
+
+void NormalItem::Invincible()
+{
+
 }

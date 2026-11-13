@@ -18,6 +18,11 @@ public:
 	void PlayerGetItem() override;
 
 private:
+	void Hear();
+	void SpeedUp();
+	void DamageUp();
+	void Invincible();
+
 
 };
 

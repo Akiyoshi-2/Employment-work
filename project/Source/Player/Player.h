@@ -69,9 +69,18 @@ private:
 	VECTOR m_Move;
 	VECTOR m_PrevPos;
 	float m_Size;
+
 	float m_BulletCoolTime;
 	float m_BulletInterval;
+
 	float m_InvincibleTimer;
+
+	float m_MoveSpeed;
+	float m_SpeedUpTimer;
+
+	int m_AttackPower;
+	float m_DamageUpTimer;
+
 	bool m_isTurn;
 	bool m_IsGround;
 	bool m_IsVisible;
