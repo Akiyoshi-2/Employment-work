@@ -40,6 +40,13 @@ enum LcateObjectID
 	MACHINE_ENEMY_00,
 	MACHINE_ENEMY_01,
 	MACHINE_ENEMY_02,
+
+	// Item
+	ITEM_00,
+	ITEM_01,
+	ITEM_02,
+	ITEM_03,
+	ITEM_04,
 };
 
 inline void jsonConvXYZ(const nlohmann::json& j, VECTOR& v)

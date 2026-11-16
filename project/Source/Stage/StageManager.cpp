@@ -3,6 +3,7 @@
 #include "../Player/PlayerManager.h"
 #include "../StageObject/StageObjectManager.h"
 #include "../Enemy/EnemyManager.h"
+#include "../Item/ItemManager.h"
 #include <fstream>
 
 using json = nlohmann::json;
@@ -59,6 +60,13 @@ void StageManager::Start()
 
 			EnemyManager::GetInstance()->CreateEnemy(id, obj.pos, obj.rot, obj.scale);
 
+		}
+		// ƒAƒCƒeƒ€
+		else if (obj.id >= ITEM_00 && obj.id <= ITEM_04)
+		{
+			int id = obj.id - ITEM_00;
+
+			ItemManager::GetInstance()->CreateItem(static_cast<ITEM_ID>(id), ITEM_CREATE_MAP, obj.pos, obj.rot, obj.scale);
 		}
 	}
 }

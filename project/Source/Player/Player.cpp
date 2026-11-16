@@ -9,8 +9,6 @@
 #include "../StageObject/StageObjectManager.h"
 #include "../MyMath/MyMath.h"
 
-
-#define MOVE_SPEED		0.4f
 #define JUMP_POWER		2.0f
 #define BULLET_SPEED	5.0f
 #define GRAVITY			0.1f
@@ -50,8 +48,6 @@ Player::Player() : m_Animation{}
 
 	m_InvincibleTimer = 0.0f;
 	m_IsVisible = true;
-
-	
 }
 
 Player::~Player()
@@ -109,13 +105,13 @@ void Player::Step()
 
 		if (Input::IsInputKey(Input::KEY_RIGHT))
 		{
-			m_Move.x += MOVE_SPEED;
+			m_Move.x += m_Buff.GetMoveSpeed();
 			m_isTurn = false;
 		}
 
 		if (Input::IsInputKey(Input::KEY_LEFT))
 		{
-			m_Move.x -= MOVE_SPEED;
+			m_Move.x -= m_Buff.GetMoveSpeed();
 			m_isTurn = true;
 		}
 
@@ -149,6 +145,7 @@ void Player::Step()
 
 				bullet->Init();
 				bullet->Load();
+				bullet->SetDamage(m_Buff.GetAttackPower());
 
 				if (m_isTurn)
 				{
@@ -180,13 +177,13 @@ void Player::Step()
 
 		if (Input::IsInputKey(Input::KEY_RIGHT))
 		{
-			m_Move.x += MOVE_SPEED;
+			m_Move.x += m_Buff.GetMoveSpeed();
 			m_isTurn = false;
 		}
 
 		if (Input::IsInputKey(Input::KEY_LEFT))
 		{
-			m_Move.x -= MOVE_SPEED;
+			m_Move.x -= m_Buff.GetMoveSpeed();
 			m_isTurn = true;
 		}
 
@@ -220,6 +217,7 @@ void Player::Step()
 
 				bullet->Init();
 				bullet->Load();
+				bullet->SetDamage(m_Buff.GetAttackPower());
 
 				if (m_isTurn)
 				{
@@ -252,12 +250,12 @@ void Player::Step()
 		// Y•ûŒü‚ÉˆÚ“®
 		if (Input::IsInputKey(Input::KEY_UP))
 		{
-			m_Move.y += MOVE_SPEED;
+			m_Move.y += m_Buff.GetMoveSpeed();
 			m_isTurn = true;
 		}
 		if (Input::IsInputKey(Input::KEY_DOWN))
 		{
-			m_Move.y -= MOVE_SPEED;
+			m_Move.y -= m_Buff.GetMoveSpeed();
 			m_isTurn = false;
 		}
 
@@ -284,6 +282,7 @@ void Player::Step()
 
 				bullet->Init();
 				bullet->Load();
+				bullet->SetDamage(m_Buff.GetAttackPower());
 
 				if (m_isTurn)
 				{
@@ -312,12 +311,12 @@ void Player::Step()
 		// Y•ûŒü‚ÉˆÚ“®
 		if (Input::IsInputKey(Input::KEY_UP))
 		{
-			m_Move.y += MOVE_SPEED;
+			m_Move.y += m_Buff.GetMoveSpeed();
 			m_isTurn = false;
 		}
 		if (Input::IsInputKey(Input::KEY_DOWN))
 		{
-			m_Move.y -= MOVE_SPEED;
+			m_Move.y -= m_Buff.GetMoveSpeed();
 			m_isTurn = true;
 		}
 
@@ -345,6 +344,7 @@ void Player::Step()
 
 				bullet->Init();
 				bullet->Load();
+				bullet->SetDamage(m_Buff.GetAttackPower());
 
 				if (m_isTurn)
 				{
@@ -527,6 +527,7 @@ void Player::Update()
 		m_IsVisible = true;
 	}
 	
+	m_Buff.Update();
 }
 
 void Player::Draw()
@@ -739,4 +740,14 @@ void Player::TakeDamage(int damage)
 	}
 
 	m_InvincibleTimer = INVINCIBLE_TIME;
+}
+
+void Player::IncreaseMoveSpeed(float value, float duration)
+{
+	m_Buff.IncreaseMoveSpeed(value, duration);
+}
+
+void Player::IncreaseAttackPower(int value, float duration)
+{
+	m_Buff.IncreaseAttackPower(value, duration);
 }

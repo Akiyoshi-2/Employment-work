@@ -109,6 +109,9 @@
     <ClCompile Include="Source\Item\NormalItem.cpp">
       <Filter>Source\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player\PlayerBuff.cpp">
+      <Filter>Source\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="Source\Item\NormalItem.h">
       <Filter>Source\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\PlayerBuff.h">
+      <Filter>Source\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

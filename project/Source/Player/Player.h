@@ -3,6 +3,7 @@
 #include "../Bullet/BulletManager.h"
 #include "../Animation/Animation.h"
 #include "../Collision/CollisionAABB.h"
+#include "PlayerBuff.h"
 #include <vector>
 
 class CollisionSphere;
@@ -61,7 +62,8 @@ public:
 
 	CollisionAABB* GetCollision() { return m_AABB; }
 
-	
+	void IncreaseMoveSpeed(float value, float duration);
+	void IncreaseAttackPower(int value, float duration = 30.0f);
 
 private:
 	int m_HP;
@@ -74,12 +76,6 @@ private:
 	float m_BulletInterval;
 
 	float m_InvincibleTimer;
-
-	float m_MoveSpeed;
-	float m_SpeedUpTimer;
-
-	int m_AttackPower;
-	float m_DamageUpTimer;
 
 	bool m_isTurn;
 	bool m_IsGround;
@@ -96,6 +92,6 @@ private:
 	CollisionAABB* m_AABB;
 	//CollisionSphere m_Sphere;
 
-
+	PlayerBuff m_Buff;
 };
 

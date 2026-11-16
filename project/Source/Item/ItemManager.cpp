@@ -76,12 +76,18 @@ void ItemManager::Step()
 
 void ItemManager::Update()
 {
-	
+	for (auto item : m_ItemList)
+	{
+		item->Update();
+	}
 }
 
 void ItemManager::Draw()
 {
-	
+	for (auto item : m_ItemList)
+	{
+		item->Draw();
+	}
 }
 
 void ItemManager::Fin()
@@ -95,7 +101,7 @@ void ItemManager::CheckHitPlayer(const CollisionAABB* playerAABB)
 
 	auto itr = m_ItemList.begin();
 
-	while (itr != m_ItemList.end());
+	while (itr != m_ItemList.end())
 	{
 		ItemBase* item = *itr;
 
@@ -114,4 +120,34 @@ void ItemManager::CheckHitPlayer(const CollisionAABB* playerAABB)
 			++itr;
 		}
 	}
+}
+
+ItemBase* ItemManager::CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType)
+{
+	if (id < 0 || id >= ITEM_MAX) return nullptr;
+
+	if (m_OriginalItem[id] == nullptr) return nullptr;
+
+	// •¡»
+	ItemBase* item = m_OriginalItem[id]->Clone();
+
+	if (item == nullptr) return nullptr;
+
+	item->Init();
+
+	m_ItemList.push_back(item);
+
+	return item;
+}
+
+ItemBase* ItemManager::CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType, VECTOR pos, VECTOR rot, VECTOR scale)
+{
+	ItemBase* item = CreateItem(id, createType);
+
+	if (item == nullptr) return nullptr;
+
+	item->SetTransform(pos, rot, scale);
+	item->Start();
+
+	return item;
 }
