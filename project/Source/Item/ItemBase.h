@@ -50,6 +50,14 @@ protected:
 	VECTOR m_Move;
 	VECTOR m_PrevPos;
 
+	bool m_IsDrop;
+
+	bool m_IsGround;
+
+	static constexpr float ITEM_GRAVITY = 0.1f;
+
+	static constexpr float ROTATION_SPEED = 0.05f;
+
 	ITEM_ID m_ItemID;
 
 	CollisionAABB* m_AABB;

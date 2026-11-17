@@ -92,7 +92,20 @@ void ItemManager::Draw()
 
 void ItemManager::Fin()
 {
-	
+	// 生成済みアイテムの削除
+	for (auto item : m_ItemList)
+	{
+		delete item;
+	}
+
+	m_ItemList.clear();
+
+	// 原型アイテムの削除
+	for (int i = 0; i < ITEM_MAX; i++)
+	{
+		delete m_OriginalItem[i];
+		m_OriginalItem[i] = nullptr;
+	}
 }
 
 void ItemManager::CheckHitPlayer(const CollisionAABB* playerAABB)

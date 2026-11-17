@@ -11,6 +11,7 @@
 #include "../../StageObject/StageObjectManager.h"
 #include "../../Stage/StageManager.h"
 #include "../../Enemy/EnemyManager.h"
+#include "../../Item/ItemManager.h"
 
 
 PlayScene::PlayScene()
@@ -62,6 +63,10 @@ void PlayScene::Init()
 
 	playerManager->GetPlayer()->SetBulletManager(BulletManager::GetInstance());
 
+	// アイテムマネージャー
+	ItemManager::CreateInstance();
+	ItemManager::GetInstance()->Init();
+
 	// ステージオブジェクト
 	StageObjectManager::CreateInstance();
 	StageObjectManager::GetInstance()->Init();
@@ -86,6 +91,8 @@ void PlayScene::Load()
 	BulletManager::GetInstance()->Load();
 	// エネミーロード
 	EnemyManager::GetInstance()->Load();
+	// アイテムロード
+	ItemManager::GetInstance()->Load();
 	// ステージオブジェクトロード
 	StageObjectManager::GetInstance()->Load();
 	// ステージロード
@@ -106,9 +113,10 @@ void PlayScene::Start()
 	CameraManager::GetInstance()->Start();
 	// バレット開始
 	BulletManager::GetInstance()->Start();
-
 	// エネミー開始
 	EnemyManager::GetInstance()->Start();
+	// アイテム開始
+	ItemManager::GetInstance()->Start();
 }
 
 void PlayScene::Step()
@@ -121,6 +129,8 @@ void PlayScene::Step()
 	BulletManager::GetInstance()->Step();
 	// エネミーステップ
 	EnemyManager::GetInstance()->Step();
+	// アイテムステップ
+	ItemManager::GetInstance()->Step();
 
 	//当たり判定
 	CollisionManager::GetInstance()->CheckCollision();	
@@ -154,6 +164,9 @@ void PlayScene::Update()
 
 	// エネミー更新
 	EnemyManager::GetInstance()->Update();
+
+	// アイテム更新
+	ItemManager::GetInstance()->Update();
 }
 
 void PlayScene::Draw()
@@ -171,6 +184,9 @@ void PlayScene::Draw()
 
 	// エネミー描画
 	EnemyManager::GetInstance()->Draw();
+
+	// アイテム描画
+	ItemManager::GetInstance()->Draw();
 
 	// 当たり判定描画
 	CollisionManager::GetInstance()->Draw();
@@ -196,6 +212,9 @@ void PlayScene::Fin()
 
 	// エネミー終了
 	EnemyManager::DeleteInstance();
+
+	// アイテム終了
+	ItemManager::DeleteInstance();
 
 	// 重力方向変更画面の画像削除
 	/*DeleteGraph(m_GravityUpHandle);

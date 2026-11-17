@@ -62,8 +62,14 @@ public:
 
 	CollisionAABB* GetCollision() { return m_AABB; }
 
+	// スピードアップ
 	void IncreaseMoveSpeed(float value, float duration);
+	// 攻撃力アップ
 	void IncreaseAttackPower(int value, float duration = 30.0f);
+	// HP回復
+	void RecoverHP();
+	// アイテムによる無敵化
+	void Invincibility(float duration);
 
 private:
 	int m_HP;
@@ -75,7 +81,10 @@ private:
 	float m_BulletCoolTime;
 	float m_BulletInterval;
 
+	// 被ダメ時の無敵時間
 	float m_InvincibleTimer;
+	// アイテムによる無敵時間
+	float m_ItemInvincibleTimer;
 
 	bool m_isTurn;
 	bool m_IsGround;

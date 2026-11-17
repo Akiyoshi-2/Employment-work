@@ -2,6 +2,7 @@
 #include "../Player/Player.h"
 #include "../Player/PlayerManager.h"
 #include "../Collision/CollisionAABB.h"
+#include "../MyMath/MyMath.h"
 
 NormalItem::NormalItem()
 {
@@ -16,7 +17,7 @@ void NormalItem::Init()
 	m_AABB = new CollisionAABB();
 
 	m_AABB->SetTargetPos(&m_Pos);
-	m_AABB->SetSize(VGet(1.0f, 1.0f, 1.0f));
+	m_AABB->SetSize(VGet(4.0f, 4.0f, 4.0f));
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 }
 
@@ -49,7 +50,12 @@ void NormalItem::Start()
 
 void NormalItem::Step()
 {
-	
+	if (!m_IsDrop) return;
+
+	if (!m_IsGround)
+	{
+
+	}
 }
 
 NormalItem* NormalItem::Clone()
@@ -98,22 +104,42 @@ void NormalItem::PlayerGetItem()
 	}
 }
 
+// HP回復アイテム
 void NormalItem::Hear()
 {
-	
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
+
+	if (player == nullptr) return;
+
+	player->RecoverHP();
 }
 
+// スピードアップアイテム
 void NormalItem::SpeedUp()
 {
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
+	if (player == nullptr) return;
+
+	player->IncreaseMoveSpeed(0.2f, 20.0f);
 }
 
+// 攻撃力アップアイテム
 void NormalItem::DamageUp()
 {
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
+	if (player == nullptr) return;
+
+	player->IncreaseAttackPower(1, 30.0f);
 }
 
+// 無敵化アイテム
 void NormalItem::Invincible()
 {
+	Player* player = PlayerManager::GetInstance()->GetPlayer();
 
+	if (player == nullptr) return;
+
+	player->Invincibility(20.0f);
 }

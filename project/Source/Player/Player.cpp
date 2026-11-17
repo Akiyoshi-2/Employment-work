@@ -518,12 +518,36 @@ void Player::Update()
 	{
 		m_InvincibleTimer -= 1.0f / 60.0f;
 
-		// 無敵時間中は点滅
-		m_IsVisible = (static_cast<int>(m_InvincibleTimer * 20.0f) % 2 == 0);
+		if (m_InvincibleTimer < 0.0f)
+		{
+			m_InvincibleTimer = 0.0f;
+		}
+	}
+	// アイテムによる無敵時間
+	if (m_ItemInvincibleTimer > 0.0f)
+	{
+		m_ItemInvincibleTimer -= 1.0f / 60.0f;
+
+		if (m_ItemInvincibleTimer < 0.0f)
+		{
+			m_ItemInvincibleTimer = 0.0f;
+		}
+	}
+
+	// 無敵時間中なら点滅
+	if (m_InvincibleTimer > 0.0f || m_ItemInvincibleTimer > 0.0f)
+	{
+		float timer = m_InvincibleTimer;
+
+		if (m_ItemInvincibleTimer > timer)
+		{
+			timer = m_ItemInvincibleTimer;
+		}
+
+		m_IsVisible = static_cast<int>(timer * 20.0f) % 2 == 0;
 	}
 	else
 	{
-		m_InvincibleTimer = 0.0f;
 		m_IsVisible = true;
 	}
 	
@@ -571,7 +595,26 @@ void Player::Draw()
 		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	
+	// デバッグ用プレイヤーステータス表示
+	DrawFormatString(20, 20, GetColor(255, 255, 255),"HP : %d / 10", m_HP);
 
+	DrawFormatString(20, 45, GetColor(255, 255, 255), "移動速度 : %.2f", m_Buff.GetMoveSpeed());
+
+	DrawFormatString(20, 70, GetColor(255, 255, 255), "射撃ダメージ : %d", m_Buff.GetAttackPower());
+
+	float invincibleTime = m_ItemInvincibleTimer;
+
+	if (m_InvincibleTimer > invincibleTime)
+	{
+		invincibleTime = m_InvincibleTimer;
+	}
+
+	DrawFormatString(20, 95, GetColor(255, 255, 255), "無敵時間 : %.1f秒", invincibleTime);
+
+	DrawFormatString(20, 120, GetColor(255, 255, 255), "スピードアップ : %.1f秒", m_Buff.GetSpeedUpTimer());
+
+	DrawFormatString(20, 145, GetColor(255, 255, 255), "攻撃力アップ : %.1f秒", m_Buff.GetDamageUpTimer());
+	////////////
 }
 
 void Player::Fin()
@@ -722,7 +765,7 @@ void Player::CheckHitStageObjects(const std::vector<StageObject*>& stageObjects)
 
 void Player::TakeDamage(int damage)
 {
-	if (m_InvincibleTimer > 0.0f)
+	if (m_InvincibleTimer > 0.0f || m_ItemInvincibleTimer > 0.0f)
 	{
 		return;
 	}
@@ -742,12 +785,24 @@ void Player::TakeDamage(int damage)
 	m_InvincibleTimer = INVINCIBLE_TIME;
 }
 
+// アイテムによるバフ
+// HP回復
+void Player::RecoverHP()
+{
+	m_HP = 10;
+}
+// スピードアップ
 void Player::IncreaseMoveSpeed(float value, float duration)
 {
 	m_Buff.IncreaseMoveSpeed(value, duration);
 }
-
+// 攻撃力アップ
 void Player::IncreaseAttackPower(int value, float duration)
 {
 	m_Buff.IncreaseAttackPower(value, duration);
+}
+// 無敵化
+void Player::Invincibility(float duration)
+{
+	m_ItemInvincibleTimer += duration;
 }

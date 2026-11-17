@@ -16,6 +16,10 @@ public:
 	void IncreaseMoveSpeed(float value, float duration);
 	void IncreaseAttackPower(int value, float duration);
 
+	// デバッグ用効果時間表示
+	float GetSpeedUpTimer() const { return m_SpeedUpTimer; }
+	float GetDamageUpTimer() const { return m_DamageUpTimer; }
+
 private:
 	static constexpr float BASE_MOVE_SPEED = 0.4f;
 	static constexpr int BASE_ATTACK_POWER = 1;

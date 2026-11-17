@@ -16,6 +16,9 @@ ItemBase::ItemBase()
 	m_PrevPos = VGet(0.0f, 0.0f, 0.0f);
 
 	m_AABB = nullptr;
+
+	m_IsDrop = false;
+	m_IsGround = false;
 }
 
 ItemBase::~ItemBase()
@@ -58,7 +61,15 @@ void ItemBase::Fin()
 	}
 }
 
+void ItemBase::ItemDrop(VECTOR pos)
+{
+	m_Pos = pos;
 
+	m_Move = VGet(0.0f, 0.0f, 0.0f);
+
+	m_IsDrop = true;
+	m_IsGround = false;
+}
 
 bool ItemBase::CheckHitStage(VECTOR nextPos)
 {
