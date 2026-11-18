@@ -164,3 +164,15 @@ ItemBase* ItemManager::CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType, VECTO
 
 	return item;
 }
+
+ItemBase* ItemManager::CreateDropItem(ITEM_ID id, VECTOR pos)
+{
+	ItemBase* item = CreateItem(id, ITEM_CREATE_DROP);
+
+	if (item == nullptr) return nullptr;
+
+	item->ItemDrop(pos);
+	item->Start();
+
+	return item;
+}

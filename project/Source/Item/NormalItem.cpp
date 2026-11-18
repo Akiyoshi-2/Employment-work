@@ -6,6 +6,9 @@
 
 NormalItem::NormalItem()
 {
+	m_GetItemNum = 1;
+	m_MinDropNum = 1;
+	m_MaxDropNum = 1;
 }
 
 NormalItem::~NormalItem()
@@ -19,6 +22,18 @@ void NormalItem::Init()
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetSize(VGet(4.0f, 4.0f, 4.0f));
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
+
+	switch (m_ItemID)
+	{
+	case ITEM_DROP_HEAL:
+		m_MinDropNum = 0;
+		m_MaxDropNum = 3;
+		break;
+	case ITEM_DROP_GEAR:
+		m_MinDropNum = 1;
+		m_MaxDropNum = 4;
+		break;
+	}
 }
 
 void NormalItem::Load()
@@ -40,6 +55,14 @@ void NormalItem::Load()
 	case ITEM_INVINCIBLE:
 		m_Handle = MV1LoadModel("Data/Item/InvincibleBox.x");
 		break;
+
+	case ITEM_DROP_HEAL:
+		m_Handle = MV1LoadModel("Data/Item/HearCapsule.x");
+		break;
+
+	case ITEM_DROP_GEAR:
+		m_Handle = MV1LoadModel("Data/Item/Gear.x");
+		break;
 	}
 }
 
@@ -54,7 +77,23 @@ void NormalItem::Step()
 
 	if (!m_IsGround)
 	{
+		m_Move.y -= ITEM_GRAVITY;
 
+		VECTOR nextPos = MyMath::VecAdd(m_Pos, m_Move);
+
+		if (CheckHitStage(nextPos))
+		{
+			m_Move.y = 0.0f;
+			m_IsGround = true;
+		}
+		else
+		{
+			m_Pos = nextPos;
+		}
+	}
+	else
+	{
+		m_Rot.y += ROTATION_SPEED;
 	}
 }
 
@@ -81,6 +120,7 @@ void NormalItem::PlayerGetItem()
 
 	switch (m_ItemID)
 	{
+	// 配置型アイテム
 	case ITEM_HEAL:
 		// HP回復
 		Hear();
@@ -101,6 +141,14 @@ void NormalItem::PlayerGetItem()
 		Invincible();
 		break;
 	
+	// ドロップアイテム
+	case ITEM_DROP_HEAL:
+		Hear();
+		break;
+
+	case ITEM_DROP_GEAR:
+		player->GetBuff().AddCurrency(CURRENCY_GEAR, m_GetItemNum);
+		break;
 	}
 }
 
@@ -142,4 +190,11 @@ void NormalItem::Invincible()
 	if (player == nullptr) return;
 
 	player->Invincibility(20.0f);
+}
+
+void NormalItem::ItemDrop(VECTOR pos)
+{
+	ItemBase::ItemDrop(pos);
+
+	m_GetItemNum = GetRand(m_MaxDropNum - m_MinDropNum) + m_MinDropNum;
 }

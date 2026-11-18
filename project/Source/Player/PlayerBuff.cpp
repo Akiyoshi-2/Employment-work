@@ -7,6 +7,11 @@ PlayerBuff::PlayerBuff()
 
 	m_AttackPower = BASE_ATTACK_POWER;
 	m_DamageUpTimer = 0.0f;
+
+	for (int i = 0; i < CURRENCY_MAX; i++)
+	{
+		m_CurrencyCount[i] = 0;
+	}
 }
 
 PlayerBuff::~PlayerBuff()
@@ -54,4 +59,31 @@ void PlayerBuff::IncreaseAttackPower(int value, float duration)
 
 	m_AttackPower += value;
 	m_DamageUpTimer = duration;
+}
+
+void PlayerBuff::AddCurrency(CURRENCY_ID id, int amount)
+{
+	if (id < 0 || id >= CURRENCY_MAX) return;
+	if (amount <= 0) return;
+
+	m_CurrencyCount[id] += amount;
+}
+
+bool PlayerBuff::UseCurrency(CURRENCY_ID id, int amount)
+{
+	if (id < 0 || id >= CURRENCY_MAX) return false;
+	if (amount <= 0) return false;
+
+	if (m_CurrencyCount[id] < amount)return false;
+
+	m_CurrencyCount[id] -= amount;
+
+	return true;
+}
+
+int PlayerBuff::GetCurrencyCount(CURRENCY_ID id) const
+{
+	if (id < 0 || id >= CURRENCY_MAX) return 0;
+
+	return m_CurrencyCount[id];
 }

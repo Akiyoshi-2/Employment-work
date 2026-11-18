@@ -17,12 +17,17 @@ public:
 
 	void PlayerGetItem() override;
 
+	void ItemDrop(VECTOR pos) override;
+
 private:
 	void Hear();
 	void SpeedUp();
 	void DamageUp();
 	void Invincible();
 
+	int m_GetItemNum;
 
+	int m_MinDropNum;
+	int m_MaxDropNum;
 };
 

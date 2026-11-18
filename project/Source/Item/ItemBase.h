@@ -58,6 +58,8 @@ protected:
 
 	static constexpr float ROTATION_SPEED = 0.05f;
 
+	static constexpr float DROP_JUMP_POWER = 1.0f;
+
 	ITEM_ID m_ItemID;
 
 	CollisionAABB* m_AABB;

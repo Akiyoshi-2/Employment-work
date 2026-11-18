@@ -65,7 +65,7 @@ void ItemBase::ItemDrop(VECTOR pos)
 {
 	m_Pos = pos;
 
-	m_Move = VGet(0.0f, 0.0f, 0.0f);
+	m_Move = VGet(0.0f, DROP_JUMP_POWER, 0.0f);
 
 	m_IsDrop = true;
 	m_IsGround = false;

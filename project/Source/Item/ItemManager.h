@@ -27,6 +27,8 @@ public:
 	ItemBase* CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType);
 	ItemBase* CreateItem(ITEM_ID id, ITEM_CREATE_TYPE createType, VECTOR pos, VECTOR rot, VECTOR scale);
 
+	ItemBase* CreateDropItem(ITEM_ID id, VECTOR pos);
+
 	void CheckHitPlayer(const CollisionAABB* playerAABB);
 
 private:

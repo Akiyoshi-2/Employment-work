@@ -33,6 +33,8 @@ public:
 		NONE = -1
 	};
 
+public:
+
 	void Init();
 	void Load();
 	void Start();
@@ -62,14 +64,15 @@ public:
 
 	CollisionAABB* GetCollision() { return m_AABB; }
 
-	// スピードアップ
 	void IncreaseMoveSpeed(float value, float duration);
-	// 攻撃力アップ
+	
 	void IncreaseAttackPower(int value, float duration = 30.0f);
-	// HP回復
+	
 	void RecoverHP();
-	// アイテムによる無敵化
+	
 	void Invincibility(float duration);
+
+	PlayerBuff& GetBuff() { return m_Buff; }
 
 private:
 	int m_HP;
