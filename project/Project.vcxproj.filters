@@ -112,6 +112,12 @@
     <ClCompile Include="Source\Player\PlayerBuff.cpp">
       <Filter>Source\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy\BossEnemy\BossEnemy.cpp">
+      <Filter>Source\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy\BossEnemy\BossAttack.cpp">
+      <Filter>Source\Enemy\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -197,6 +203,9 @@
     </Filter>
     <Filter Include="Source\Item">
       <UniqueIdentifier>{f8953a80-0319-4d33-a021-9aff925c24c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Enemy\Boss">
+      <UniqueIdentifier>{a021c6dc-6d0c-471d-955e-9f2ed2629adc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -296,9 +305,6 @@
     <ClInclude Include="Source\Enemy\EnemyBase.h">
       <Filter>Source\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy\EnemyParameter.h">
-      <Filter>Source\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Enemy\Machine\BigRoomba.h">
       <Filter>Source\Enemy\Machine</Filter>
     </ClInclude>
@@ -325,6 +331,15 @@
     </ClInclude>
     <ClInclude Include="Source\Player\PlayerBuff.h">
       <Filter>Source\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\BossEnemy\BossEnemy.h">
+      <Filter>Source\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\EnemyParameter.h">
+      <Filter>Source\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\BossEnemy\BossAttack.h">
+      <Filter>Source\Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

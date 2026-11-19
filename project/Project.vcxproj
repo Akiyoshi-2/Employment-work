@@ -155,6 +155,8 @@
     <ClCompile Include="Source\Collision\CollisionAABB.cpp" />
     <ClCompile Include="Source\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Collision\CollisionSphere.cpp" />
+    <ClCompile Include="Source\Enemy\BossEnemy\BossAttack.cpp" />
+    <ClCompile Include="Source\Enemy\BossEnemy\BossEnemy.cpp" />
     <ClCompile Include="Source\Enemy\EnemyBase.cpp" />
     <ClCompile Include="Source\Enemy\EnemyManager.cpp" />
     <ClCompile Include="Source\Enemy\Machine\BigRoomba.cpp" />
@@ -194,6 +196,8 @@
     <ClInclude Include="Source\Collision\CollisionAABB.h" />
     <ClInclude Include="Source\Collision\CollisionManager.h" />
     <ClInclude Include="Source\Collision\CollisionSphere.h" />
+    <ClInclude Include="Source\Enemy\BossEnemy\BossAttack.h" />
+    <ClInclude Include="Source\Enemy\BossEnemy\BossEnemy.h" />
     <ClInclude Include="Source\Enemy\EnemyBase.h" />
     <ClInclude Include="Source\Enemy\EnemyManager.h" />
     <ClInclude Include="Source\Enemy\EnemyParameter.h" />

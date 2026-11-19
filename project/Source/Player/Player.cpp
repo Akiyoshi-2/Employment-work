@@ -9,10 +9,6 @@
 #include "../StageObject/StageObjectManager.h"
 #include "../MyMath/MyMath.h"
 
-#define JUMP_POWER		2.0f
-#define BULLET_SPEED	5.0f
-#define GRAVITY			0.1f
-
 struct PlayerAnimParam
 {
 	int interval;
@@ -89,7 +85,6 @@ void Player::Start()
 	m_AABB->SetTargetPos(&m_Pos);
 	m_AABB->SetLocalPos(VGet(0.0f, 0.0f, 0.0f));
 	m_AABB->SetSize(VGet(5.0f, 5.0f, 5.0f));
-
 	
 	m_Pos = VGet(10.0f, 10.0f, 0.0f);
 }

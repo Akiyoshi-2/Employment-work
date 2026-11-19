@@ -92,6 +92,11 @@ private:
 	bool m_isTurn;
 	bool m_IsGround;
 	bool m_IsVisible;
+
+	static constexpr float JUMP_POWER = 2.0f;
+	static constexpr float BULLET_SPEED = 5.0f;
+	static constexpr float GRAVITY = 0.1f;
+
 	static constexpr float INVINCIBLE_TIME = 1.0f;
 
 	PlayerGravityDir m_GravityDir;

@@ -32,7 +32,7 @@ public:
 
 	virtual void PlayerGetItem() {}
 
-	virtual void ItemDrop(VECTOR pos) {}
+	virtual void ItemDrop(VECTOR pos);
 
 	void SetItemID(ITEM_ID id)
 	{

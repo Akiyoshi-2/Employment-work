@@ -43,11 +43,13 @@ void EnemyBase::Draw()
 {
 	MV1DrawModel(m_Handle);
 
+#ifdef _DEBUG
 	// “–‚½‚è”»’è•`‰æ
 	if (m_AABB != nullptr)
 	{
 		m_AABB->Draw();
 	}
+#endif // DEBUG
 }
 
 void EnemyBase::Fin()
