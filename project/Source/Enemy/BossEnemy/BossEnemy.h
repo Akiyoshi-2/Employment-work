@@ -24,4 +24,6 @@ private:
 	};
 
 	bool m_IsGround;
+
+	static constexpr float MOVE_SPEED = 0.3;
 };

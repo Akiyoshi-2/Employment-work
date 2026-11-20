@@ -590,8 +590,10 @@ void Player::Draw()
 		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	
+	DrawFormatString(20, 20, GetColor(255, 255, 255), "HP : %d / 10", m_HP);
+#ifdef DEBUG
 	// デバッグ用プレイヤーステータス表示
-	DrawFormatString(20, 20, GetColor(255, 255, 255),"HP : %d / 10", m_HP);
+	
 
 	DrawFormatString(20, 45, GetColor(255, 255, 255), "移動速度 : %.2f", m_Buff.GetMoveSpeed());
 
@@ -610,6 +612,8 @@ void Player::Draw()
 
 	DrawFormatString(20, 145, GetColor(255, 255, 255), "攻撃力アップ : %.1f秒", m_Buff.GetDamageUpTimer());
 	////////////
+#endif // DEBUG
+
 }
 
 void Player::Fin()
