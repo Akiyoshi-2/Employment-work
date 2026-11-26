@@ -28,7 +28,7 @@ void CollisionAABB::Draw()
 	posB.y = centerPos.y + m_Size.y * 0.5f;
 	posB.z = centerPos.z + m_Size.z * 0.5f;
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	DrawCube3D(posA, posB, GetColor(255, 255, 255), GetColor(255, 255, 255), FALSE);
 #endif // DEBUG
 }

@@ -8,6 +8,7 @@
 #include "../StageObject/StageObject.h"
 #include "../StageObject/StageObjectManager.h"
 #include "../MyMath/MyMath.h"
+#include "../Scene/SceneManager.h"
 
 struct PlayerAnimParam
 {
@@ -590,11 +591,10 @@ void Player::Draw()
 		DrawBillboard3D(m_Pos, 0.5f, 0.5f, m_Size, DX_PI_F * 0.5f,GetAnimationHandle(anim), TRUE, m_isTurn, FALSE);
 	}
 	
-	DrawFormatString(20, 20, GetColor(255, 255, 255), "HP : %d / 10", m_HP);
-#ifdef DEBUG
+#ifdef _DEBUG
 	// デバッグ用プレイヤーステータス表示
+	DrawFormatString(20, 20, GetColor(255, 255, 255), "HP : %d / 10", m_HP);
 	
-
 	DrawFormatString(20, 45, GetColor(255, 255, 255), "移動速度 : %.2f", m_Buff.GetMoveSpeed());
 
 	DrawFormatString(20, 70, GetColor(255, 255, 255), "射撃ダメージ : %d", m_Buff.GetAttackPower());
@@ -779,6 +779,8 @@ void Player::TakeDamage(int damage)
 	if (m_HP < 0)
 	{
 		m_HP = 0;
+
+		SceneManager::GetInstance()->ChangeScene(GAME_OVER);
 	}
 
 	m_InvincibleTimer = INVINCIBLE_TIME;

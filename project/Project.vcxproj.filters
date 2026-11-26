@@ -118,6 +118,9 @@
     <ClCompile Include="Source\Enemy\BossEnemy\BossAttack.cpp">
       <Filter>Source\Enemy\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene\Clear\ClearScene.cpp">
+      <Filter>Source\Scene\Clear</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -206,6 +209,9 @@
     </Filter>
     <Filter Include="Source\Enemy\Boss">
       <UniqueIdentifier>{a021c6dc-6d0c-471d-955e-9f2ed2629adc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Clear">
+      <UniqueIdentifier>{4ce25dcb-1526-4704-be7f-03d506685ff4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="Source\Enemy\BossEnemy\BossAttack.h">
       <Filter>Source\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene\Clear\ClearScene.h">
+      <Filter>Source\Scene\Clear</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

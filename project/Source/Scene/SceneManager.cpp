@@ -1,6 +1,8 @@
 #include "SceneManager.h"
 #include "Title/TitleScene.h"
 #include "Play/PlayScene.h"
+#include "GameOver/GameOver.h"
+#include "Clear/ClearScene.h"
 #include <stdio.h>
 #include <DxLib.h>
 
@@ -104,14 +106,14 @@ void SceneManager::CreateScene(SceneType type)
 	case PLAY:
 		m_NowScene = new PlayScene;
 		break;
-	/*
-	case Clear:
+	
+	case CLEAR:
 		m_NowScene = new ClearScene;
 		break;
 
-	case GameOver:
-		m_NowScene = new GameOverScene;
+	case GAME_OVER:
+		m_NowScene = new GameOver;
 		break;
-	*/
+	
 	}
 }

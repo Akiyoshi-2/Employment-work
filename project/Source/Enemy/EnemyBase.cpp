@@ -43,7 +43,7 @@ void EnemyBase::Draw()
 {
 	MV1DrawModel(m_Handle);
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	// “–‚½‚è”»’è•`‰æ
 	if (m_AABB != nullptr)
 	{
