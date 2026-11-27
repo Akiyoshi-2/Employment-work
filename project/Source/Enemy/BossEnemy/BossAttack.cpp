@@ -122,12 +122,30 @@ void BossAttack::BurstAttack(VECTOR bossPos)
 
 				bullet->Init();
 				bullet->Load();
+
+				bullet->SetPosition(bossPos);
+
+				const float BULLET_SPEED = 0.4;
+
+				direction = VScale(direction, BULLET_SPEED);
+				bullet->SetDirection(direction);
+
+				BulletManager::GetInstance()->AddBullet(bullet);
+			}
+
+			m_ShotCount++;
+
+			// 5”­Œ‚‚Á‚½‚çI—¹
+			if (m_ShotCount >= 5)
+			{
+				m_AttackState = ATTACK_END;
 			}
 		}
 		break;
 
 	case BossAttack::ATTACK_END:
-
+		m_AttackTimer = 0.0f;
+		m_AttackState = ATTACK_WAIT;
 		break;
 	}
 }
