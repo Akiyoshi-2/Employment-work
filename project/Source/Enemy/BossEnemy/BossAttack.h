@@ -11,6 +11,7 @@ public:
 
 	void Init();
 	void Step(VECTOR bossPos);
+	void Draw();
 	
 	bool IsMoveStopped() const;
 
@@ -31,6 +32,9 @@ private:
 		ATTACK_END			// 攻撃終了
 	};
 
+	// 攻撃関数ポインタ
+	using AttackFunction = void (BossAttack::*)(VECTOR bossPos);
+
 	BOSS_ATTACK_TYPE m_AttackType;
 	BOSS_ATTACK_STATE m_AttackState;
 
@@ -39,13 +43,28 @@ private:
 
 	int m_ShotCount;
 
+	// ロックオン用
+	VECTOR m_BossPos;
+	VECTOR m_LockOnDirection;
+	VECTOR m_LockOnTargetPos;
+
+	// ロックオン時間
+	float m_LockOnTimer;
+
+	// 実行中の攻撃関数
+	AttackFunction m_CurrentAttack;
+
+	// バースト射撃
+	void BurstAttack(VECTOR bossPos);
+
+	// ロックオンレーザー
+	void LockOnAttack(VECTOR bossPos);
+
 	// ボスの種類ごとの処理
 	void MachineBossAttack(VECTOR bossPos);
 	void JungleBossAttack();
 	void LavaBossAttack();
 	void PollutionBossAttack();
-
-	// バースト射撃
-	void BurstAttack(VECTOR bossPos);
+	
 };
 

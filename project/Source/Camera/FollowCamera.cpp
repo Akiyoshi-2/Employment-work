@@ -12,7 +12,7 @@ FollowCamera::FollowCamera()
 
 	m_Target = VGet(0.0f, 0.0f, 0.0f);
 
-	m_Offset = VGet(0.0f, 20.0f, -10.0f);
+	m_Offset = VGet(0.0f, 0.0f, -70.0f);
 }
 
 FollowCamera::~FollowCamera()

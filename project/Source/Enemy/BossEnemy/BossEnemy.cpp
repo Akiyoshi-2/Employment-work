@@ -41,7 +41,7 @@ void BossEnemy::Load()
 
 void BossEnemy::Start()
 {
-	m_BossAttack.Init();
+	m_BossAttack->Init();
 }
 
 void BossEnemy::Step()
@@ -81,7 +81,7 @@ void BossEnemy::Step()
 
 	UpdateRot();
 
-	m_BossAttack.Step(m_Pos);
+	m_BossAttack->Step(m_Pos);
 }
 
 void BossEnemy::OnHitPlayer()

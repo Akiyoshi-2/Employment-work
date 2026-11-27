@@ -57,7 +57,7 @@ void ShootingEnemy::Start()
 	m_State = SHOOTING_NORMAL;
 	m_TrackDirection = 1.0f;
 	m_ShootTimer = 0.0f;
-	m_SearchRange = 50.0f;
+	m_SearchRange = 35.0f;
 	m_ShootInterval = 1.0f;
 
 	m_Dir = ENEMY_DIR_RIGHT;

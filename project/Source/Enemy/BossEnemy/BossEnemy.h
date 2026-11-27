@@ -1,6 +1,8 @@
 #pragma once
 #include "../EnemyBase.h"
 
+class BossAttack;
+
 class BossEnemy : public EnemyBase
 {
 public:
@@ -46,6 +48,6 @@ private:
 	static constexpr float FLOAT_HEIGHT = 1.0f;
 	static constexpr float FLOAT_SPEED = 2.0f;
 
-	BossAttack m_BossAttack;
+	BossAttack* m_BossAttack;
 
 };
